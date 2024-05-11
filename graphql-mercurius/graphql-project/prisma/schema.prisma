@@ -24,3 +24,9 @@ model Post {
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
 }
+
+//追加
+generator nestgraphql {
+    provider = "prisma-nestjs-graphql"
+    output = "../src/@generated/prisma-nestjs-graphql"
+}
