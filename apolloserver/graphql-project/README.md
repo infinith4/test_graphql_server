@@ -1,6 +1,6 @@
+https://zenn.dev/metallic_kfc/articles/59f3875c950056
+
 npx prisma init
-
-
 
 dbからSchemaをschema.prismaに反映する
 
