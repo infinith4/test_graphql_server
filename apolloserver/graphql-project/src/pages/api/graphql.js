@@ -1,9 +1,9 @@
+"use strict";
 // import { ApolloServer } from "@apollo/server";
 // import { startServerAndCreateNextHandler } from "@as-integrations/next";
 // import { PrismaClient } from "@prisma/client";
 // import { readFileSync } from "fs";
 // import path from "path";
-
 // const prisma = new PrismaClient();
 // const resolvers = {
 //   Query: {
@@ -19,5 +19,4 @@
 //   resolvers,
 //   typeDefs,
 // });
-
 // export default startServerAndCreateNextHandler(server);

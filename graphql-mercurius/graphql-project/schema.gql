@@ -1,0 +1,28 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""recipe """
+type Recipe {
+  id: ID!
+  title: String!
+  description: String
+  creationDate: Date!
+  ingredients: [String!]!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Query {
+  recipes: [Recipe!]!
+}
+
+type Mutation {
+  createRecipe(createRecipeInput: CreateRecipeInput!): Recipe!
+}
+
+input CreateRecipeInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}

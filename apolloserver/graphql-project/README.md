@@ -19,3 +19,27 @@ npx prisma generate
 
 
 npx graphql-codegen --config codegen.ts
+
+
+npm i @apollo/server @node-libraries/nest-apollo-server graphql graphql-tag
+
+
+npx nest g co graphql
+
+
+  // "dependencies": {
+  //   "@apollo/client": "^3.10.3",
+  //   "@apollo/server": "^4.10.4",
+  //   "@as-integrations/next": "^3.0.0",
+  //   "@node-libraries/nest-apollo-server": "^0.0.4",
+  //   "@prisma/client": "^5.13.0",
+  //   "graphql": "^16.8.1",
+  //   "graphql-tag": "^2.12.6",
+  //   "prisma": "^5.13.0"
+  // },
+  // "devDependencies": {
+  //   "@graphql-codegen/cli": "^5.0.2",
+  //   "@graphql-codegen/typescript": "^4.0.6",
+  //   "@graphql-codegen/typescript-operations": "^4.2.0",
+  //   "@graphql-codegen/typescript-react-apollo": "^4.3.0"
+  // }
