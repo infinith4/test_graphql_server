@@ -1,0 +1,4 @@
+docker/db
+docker/phpmyadmin
+mysql.env
+node_modules

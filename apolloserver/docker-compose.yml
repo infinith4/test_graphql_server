@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  apps:
+    container_name: test_graphql_server-apolloserver
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - type: bind
+        source: ./graphql-project
+        target: /graphql-project
+
+      
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  db:
+    image: mysql:8.0
+    container_name: mysql80-test_graphql_server-apolloserver
+    restart: always
+    env_file:
+      - mysql.env
+    ports:
+      - 3307:3306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-test_graphql_server-apolloserver
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 9091:80
+    volumes:
+      - ./docker/phpmyadmin/sessions:/sessions
+# volumes:
+#   docker/db/data:
+#   docker/db/my.cnf:
+#   docker/db/sql:
+# version: "3"
+
+# services:
+#   cli:
+#     build: 
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - 5002:5002
+#     tty: true
+#     volumes:
+#       - type: bind
+#         source: ./src
+#         target: /src
+
+# volumes:
+#   bin:
+#   out:
