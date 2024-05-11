@@ -130,3 +130,4 @@ dist
 .pnp.*
 .DS_Store
 graphql-mercurius/mysql.env
+graphql-mercurius/docker
