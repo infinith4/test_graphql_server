@@ -1,7 +1,10 @@
+GRANT ALL PRIVILEGES ON *.* TO 'prisma_user'@'%' WITH GRANT OPTION;
+
 npm i @nestjs/common graphql @nestjs/graphql @nestjs/core @nestjs/swagger @nestjs/platform-express prisma-nestjs-graphql nestjs-prisma
 npm i @nestjs/graphql @nestjs/apollo @apollo/server graphql
 
 npm i -D @nestjs/cli @nestjs/schematics @types/node @nestjs/testing typescript eslint ts-node @prisma/client
+npm i -D prisma-erd-generator @mermaid-js/mermaid-cli
 
 npx prisma migrate dev
 
@@ -24,3 +27,6 @@ query{
    name
   }
 }
+
+
+ npx prisma studio
