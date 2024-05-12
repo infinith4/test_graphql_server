@@ -16,7 +16,11 @@ export class PostsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} post`;
+    return this.prisma.post.findFirst({
+      where: {
+        id: id,
+      },
+    });
   }
 
   update(id: number, updatePostInput: UpdatePostInput) {

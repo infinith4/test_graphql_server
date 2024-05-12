@@ -30,3 +30,30 @@ query{
 
 
  npx prisma studio
+
+
+```
+query { user(id: 3) { id } }
+```
+
+```
+query{
+  users{
+    id
+  }
+}
+```
+
+
+```
+query{
+  posts{
+    title
+  }
+}
+```
+
+
+```
+query { post(id: 3) { title } }
+```
