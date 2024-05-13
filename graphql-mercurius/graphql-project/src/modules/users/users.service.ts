@@ -40,6 +40,7 @@ export class UsersService {
 
   findAll() {
     return this.prisma.user.findMany({
+      include: { posts: true },
     });
   }
 

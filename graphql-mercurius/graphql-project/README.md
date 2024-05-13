@@ -57,3 +57,28 @@ query{
 ```
 query { post(id: 3) { title } }
 ```
+
+
+
+```
+  findAll() {
+    return this.prisma.user.findMany({
+      include: { posts: true },
+    });
+  }
+```
+
+
+```
+query{
+  users{
+    id
+    email
+    posts {
+      id
+      title
+      published
+    }
+  }
+}
+```
