@@ -2,31 +2,292 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestgraphql {
+  provider = "prisma-nestjs-graphql"
+  output   = "../src/@generated/prisma-nestjs-graphql"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-//追加
-model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
-  posts Post[]
+model article_images {
+  id         Int       @id @unique(map: "ui_article_images_id")
+  url        String?   @db.VarChar(255)
+  article_id Int
+  created_at DateTime  @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at DateTime? @db.DateTime(0)
+  articles   articles  @relation(fields: [article_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_articles_id_article_images_article_id")
+
+  @@index([article_id], map: "idx_article_images_id")
 }
 
-//追加
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+model articles {
+  id             Int              @id @unique(map: "ui_articles_id")
+  status         articles_status?
+  title          String?          @db.VarChar(255)
+  content        String?          @db.VarChar(255)
+  user_id        Int
+  created_at     DateTime         @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at     DateTime?        @db.DateTime(0)
+  article_images article_images[]
+  users          users            @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_articles_user_id_users_id")
+
+  @@index([user_id], map: "idx_articles_user_id")
 }
 
-//追加
-generator nestgraphql {
-    provider = "prisma-nestjs-graphql"
-    output = "../src/@generated/prisma-nestjs-graphql"
+model categories {
+  id               Int          @id @unique(map: "ui_categories_id")
+  name             String?      @db.VarChar(255)
+  parent_id        Int?
+  created_at       DateTime     @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at       DateTime?    @db.DateTime(0)
+  categories       categories?  @relation("categoriesTocategories", fields: [parent_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_categories_parent_id_categories_id")
+  other_categories categories[] @relation("categoriesTocategories")
+  products         products[]
+
+  @@index([parent_id], map: "fk_categories_parent_id_categories_id")
+}
+
+model countries {
+  code           Int                       @id @unique(map: "ui_countries_code")
+  name           String?                   @db.VarChar(255)
+  continent_code countries_continent_code?
+  merchants      merchants[]
+  users          users[]
+}
+
+model customers {
+  id             Int        @id @unique(map: "ui_customers_id") @default(autoincrement())
+  user_id        Int?       @unique(map: "idx_customers_user_id")
+  first_name     String     @db.VarChar(255)
+  last_name      String     @db.VarChar(255)
+  company        String?    @db.VarChar(255)
+  address        String?    @db.VarChar(255)
+  city           String?    @db.VarChar(255)
+  state          String?    @db.VarChar(255)
+  country_code   Int?
+  postal_code    String?    @db.VarChar(255)
+  phone_number   String?    @db.VarChar(255)
+  email          String     @db.VarChar(255)
+  support_rep_id Int?
+  created_at     DateTime   @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at     DateTime?  @db.DateTime(0)
+  employees      employees? @relation(fields: [support_rep_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_employees_id_customers_support_rep_id")
+  invoices       invoices[]
+  orders         orders[]
+  users          users?
+
+  @@index([support_rep_id], map: "idx_customers_support_rep_id")
+}
+
+model employees {
+  id           Int         @id @unique(map: "ui_employees_id")
+  first_name   String      @db.VarChar(255)
+  last_name    String      @db.VarChar(255)
+  title        String?     @db.VarChar(255)
+  birth_date   DateTime?   @db.Date
+  hire_date    DateTime?   @db.Date
+  address      String?     @db.VarChar(255)
+  city         String?     @db.VarChar(255)
+  state        String?     @db.VarChar(255)
+  country_code Int?
+  postal_code  String?     @db.VarChar(255)
+  phone_number String?     @db.VarChar(255)
+  email        String?     @db.VarChar(255)
+  area_id      Int?
+  created_at   DateTime    @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at   DateTime?   @db.DateTime(0)
+  customers    customers[]
+}
+
+model invoice_items {
+  id         Int       @id @unique(map: "ui_invoice_items_id")
+  invoice_id Int
+  unit_price Int
+  quantity   Int
+  created_at DateTime  @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at DateTime? @db.DateTime(0)
+  invoices   invoices  @relation(fields: [invoice_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_invoice_items_invoice_id_invoices_id")
+
+  @@index([invoice_id], map: "idx_invoice_items_invoice_id")
+}
+
+model invoices {
+  id                   Int             @id @unique(map: "ui_invoices_id")
+  customer_id          Int
+  invoice_date         DateTime        @db.Date
+  billing_address      String?         @db.VarChar(255)
+  billing_city         String?         @db.VarChar(255)
+  billing_state        String?         @db.VarChar(255)
+  billing_country_code Int?
+  billing_postal_code  String?         @db.VarChar(255)
+  total                Int
+  created_at           DateTime        @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at           DateTime?       @db.DateTime(0)
+  invoice_items        invoice_items[]
+  customers            customers       @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customers_id_invoices_customer_id")
+
+  @@index([customer_id], map: "idx_invoices_customer_id")
+}
+
+model merchant_images {
+  id          Int       @id @unique(map: "ui_merchant_images_id")
+  url         String?   @db.VarChar(255)
+  merchant_id Int
+  created_at  DateTime  @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at  DateTime? @db.DateTime(0)
+  merchants   merchants @relation(fields: [merchant_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_merchants_id_merchant_images_merchant_id")
+
+  @@index([merchant_id], map: "idx_merchant_images_merchant_id")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model merchants {
+  id              Int               @id @unique(map: "ui_merchants_id")
+  name            String?           @db.VarChar(255)
+  admin_id        Int
+  country_code    Int?
+  created_at      DateTime          @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at      DateTime?         @db.DateTime(0)
+  merchant_images merchant_images[]
+  users           users             @relation(fields: [admin_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_merchants_admin_id_users_id")
+  countries       countries?        @relation(fields: [country_code], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_merchants_country_code_countries_code")
+  products        products[]
+
+  @@index([admin_id], map: "idx_merchants_admin_id")
+  @@index([country_code], map: "idx_merchants_country_code")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model order_items {
+  order_id   Int
+  product_id Int
+  quantity   Int
+  created_at DateTime  @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at DateTime? @db.DateTime(0)
+  orders     orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_items_order_id_orders_id")
+  products   products  @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_items_product_id_products_id")
+
+  @@index([order_id], map: "idx_order_items_order_id")
+  @@index([product_id], map: "idx_order_items_product_id")
+  @@ignore
+}
+
+model orders {
+  id                   Int                    @id @unique(map: "ui_orders_id") @default(autoincrement())
+  customer_id          Int
+  status               orders_status?
+  created_at           DateTime               @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at           DateTime?              @db.DateTime(0)
+  order_items          order_items[]          @ignore
+  customers            customers              @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_orders_customer_id_customers_id")
+  payment_transactions payment_transactions[]
+
+  @@index([customer_id], map: "idx_orders_customer_id")
+}
+
+model payment_transactions {
+  id             Int       @id @unique(map: "ui_payment_transactions_id") @default(autoincrement())
+  order_id       Int
+  amount         Int?
+  status         String?   @db.VarChar(255)
+  payment_method String    @db.VarChar(255)
+  transaction_id String    @db.VarChar(255)
+  created_at     DateTime  @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at     DateTime? @db.DateTime(0)
+  orders         orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_payment_transactions_order_id_orders_id")
+
+  @@index([order_id], map: "idx_payment_transactions_order_id")
+}
+
+model products {
+  id          Int              @id @unique(map: "ui_products_id")
+  name        String?          @db.VarChar(255)
+  merchant_id Int
+  price       Int?
+  status      products_status?
+  category_id Int?
+  created_at  DateTime         @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at  DateTime?        @db.DateTime(0)
+  order_items order_items[]    @ignore
+  categories  categories?      @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_products_category_id_categories_id")
+  merchants   merchants        @relation(fields: [merchant_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_products_merchant_id_merchants_id")
+
+  @@index([category_id], map: "idx_products_category_id")
+  @@index([merchant_id], map: "idx_products_merchant_id")
+}
+
+model profiles {
+  id         Int       @id @unique(map: "ui_profiles_id")
+  user_id    Int?      @unique(map: "idx_profiles_user_id")
+  bio        String?   @db.VarChar(255)
+  website    String?   @db.VarChar(255)
+  email      String?   @db.VarChar(255)
+  created_at DateTime  @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at DateTime? @db.DateTime(0)
+  users      users?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model users {
+  id            Int         @id @unique(map: "ui_users_id")
+  first_name    String?     @db.VarChar(255)
+  last_name     String?     @db.VarChar(255)
+  username      String      @unique(map: "username") @db.VarChar(255)
+  email         String      @unique(map: "email") @db.VarChar(255)
+  password      String?     @db.VarChar(255)
+  phone_number  String?     @db.VarChar(255)
+  gender        String?     @db.VarChar(255)
+  date_of_birth DateTime?   @db.Date
+  country_code  Int?
+  avatar_url    String?     @db.VarChar(255)
+  last_login    DateTime    @default(dbgenerated("(now())")) @db.DateTime(0)
+  created_at    DateTime    @default(dbgenerated("(now())")) @db.DateTime(0)
+  updated_at    DateTime?   @db.DateTime(0)
+  articles      articles[]
+  merchants     merchants[]
+  customers     customers   @relation(fields: [id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customers_user_id_users_id")
+  profiles      profiles    @relation(fields: [id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profiles_user_id_users_id")
+  countries     countries?  @relation(fields: [country_code], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_country_code_countries_code")
+
+  @@index([country_code], map: "idx_users_country_code")
+}
+
+enum articles_status {
+  draft
+  published
+  private
+  deleted
+}
+
+enum countries_continent_code {
+  af
+  an
+  as
+  eu
+  na
+  oc
+  sa
+}
+
+enum orders_status {
+  pending
+  processing
+  completed
+  cancelled
+}
+
+enum products_status {
+  active
+  inactive
+  deleted
+  out_of_stock
+  in_stock
+  running_low
 }
