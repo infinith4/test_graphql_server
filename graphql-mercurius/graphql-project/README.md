@@ -6,12 +6,27 @@ npm i @nestjs/graphql @nestjs/apollo @apollo/server graphql
 npm i -D @nestjs/cli @nestjs/schematics @types/node @nestjs/testing typescript eslint ts-node @prisma/client
 npm i -D prisma-erd-generator @mermaid-js/mermaid-cli
 
+## prisma からDBに適用
+
 npx prisma migrate dev
+
+# prisma からDBに適用
+
+prisma/seed/start.ts に基づき、以下を実行することでDBにデータを入れる。
 
 npx prisma db seed
 
+## スキーマ定義ファイルの更新
 
-src/@generatedにGraphQLのコードが生成
+スキーマ定義ファイル（schema.prisma）を上書きしてしまうため、まずは更新内容をコンソールで確認する。
+
+npx prisma db pull --print
+
+### DBからprisma schema に適用する
+
+npx prisma db pull
+
+## src/@generatedにGraphQLのコードが生成
 
 npx prisma generate
 
@@ -82,3 +97,27 @@ query{
   }
 }
 ```
+
+
+
+### prisma schema から dbmlを生成
+
+https://github.com/notiz-dev/prisma-dbml-generator
+
+npm install -D prisma-dbml-generator
+
+
+add schema.prisma
+
+```
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+```
+
+
+npx prisma generate
+
+
+prisma/dbml/schema.dbml に出力される。
+
