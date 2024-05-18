@@ -150,13 +150,13 @@ Table articles {
   id int [pk, increment] // Primary key
   title varchar [not null]
   content text [not null]
-  author_id int
+  user_id int
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
 
   Indexes {
-    idx_articles_title (title)
-    idx_articles_author_id (author_id)
+    id [name: "ui_articles_id"]
+    user_id [name: "idx_articles_user_id"]
   }
 }
 
