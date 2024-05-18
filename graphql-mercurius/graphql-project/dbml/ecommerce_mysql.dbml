@@ -8,6 +8,7 @@ Table users {
   updated_at datetime [default: `now()`]
 
   Indexes {
+    id [unique, name: "ui_users_id"]
     username [unique, name: "ui_users_username"]
     email [name: "idx_users_email"]
   }
@@ -22,6 +23,7 @@ Table customers {
   updated_at datetime [default: `now()`]
 
   Indexes {
+    id [unique, name: "ui_customers_id"]
     user_id [unique, name: "ui_customers_user_id"]
   }
 }
@@ -47,14 +49,17 @@ Table categories {
   updated_at datetime [default: `now()`]
 
   Indexes {
-    id [name: "ui_categories_id"]
+    id [unique, name: "ui_categories_id"]
   }
 }
 
 Table product_categories {
   product_id int
   category_id int
-  primary key (product_id, category_id)
+
+  Indexes {
+    (product_id, category_id) [pk]
+  }
 }
 
 Table orders {
@@ -66,13 +71,12 @@ Table orders {
   updated_at datetime [default: `now()`]
 
   Indexes {
-    id [name: "ui_orders_id"]
+    id [unique, name: "ui_orders_id"]
     user_id [name: "idx_orders_user_id"]
   }
 }
 
 Table order_items {
-  id int [pk, increment] // Primary key
   order_id int
   product_id int
   quantity int [not null]
@@ -88,9 +92,9 @@ Table order_items {
   }
 }
 
-Table addresses {
+Table customer_addresses {
   id int [pk, increment] // Primary key
-  user_id int
+  customer_id int [not null]
   address_line1 varchar [not null]
   address_line2 varchar
   city varchar [not null]
@@ -101,8 +105,8 @@ Table addresses {
   updated_at datetime [default: `now()`]
 
   Indexes {
-    idx_addresses_user_id (user_id)
-    idx_addresses_postal_code (postal_code)
+    id [unique, name: "ui_customer_addresses_id"]
+    customer_id [name: "idx_customer_addresses_customer_id"]
   }
 }
 
@@ -116,9 +120,8 @@ Table payments {
   updated_at datetime [default: `now()`]
 
   Indexes {
-    id [unique, name: "ui_carts_id"]
-    idx_payments_order_id (order_id)
-    idx_payments_status (payment_status)
+    id [unique, name: "ui_payments_id"]
+    order_id [name: "idx_payments_order_id"]
   }
 }
 
@@ -169,10 +172,10 @@ Ref "fk_product_categories_category_id_categories_id" :  product_categories.cate
 Ref "fk_orders_user_id_users_id": orders.user_id > users.id
 Ref "fk_order_items_order_id_orders_id": order_items.order_id > orders.id
 Ref "fk_order_items_product_id_products_id": order_items.product_id > products.id
-Ref "fk_addresses_user_id_users_id": addresses.user_id > users.id
+Ref "fk_customer_addresses_customer_id_customers_id": customer_addresses.customer_id > customers.id
 Ref "fk_payments_order_id_orders_id" :payments.order_id > orders.id
 Ref "fk_carts_user_id_users_id": carts.user_id > users.id
 Ref "fk_cart_items_cart_id_carts_id" :cart_items.cart_id > carts.id
 Ref "fk_cart_items_product_id_products_id": cart_items.product_id > products.id
-Ref "fk_articles_author_id_users_id": articles.author_id > users.id
+Ref "fk_articles_user_id_users_id": articles.user_id > users.id
 Ref "fk_customers_user_id_users_id" :customers.user_id > users.id [delete: cascade, update: cascade]
