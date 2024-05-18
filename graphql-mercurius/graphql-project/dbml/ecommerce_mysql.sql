@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml.dbdiagram.io)
 -- Database: MySQL
--- Generated at: 2024-05-18T01:22:19.656Z
+-- Generated at: 2024-05-18T03:34:22.407Z
 
 CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
