@@ -124,3 +124,8 @@ prisma/dbml/schema.dbml に出力される。
 
 npm i @dbml/cli
 npx dbml2sql dbml/ecommerce_mysql.dbml -o dbml/ecommerce_mysql.sql --mysql
+
+
+## seed
+
+npx prisma db seed
