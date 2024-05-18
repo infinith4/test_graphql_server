@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml.dbdiagram.io)
 -- Database: MySQL
--- Generated at: 2024-05-18T01:16:29.593Z
+-- Generated at: 2024-05-18T01:22:19.656Z
 
 CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
@@ -25,6 +25,7 @@ CREATE TABLE `products` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text,
+  `status` ENUM ('active', 'inactive', 'deleted', 'out_of_stock', 'in_stock', 'running_low'),
   `price` decimal(10,2) NOT NULL,
   `stock` int NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT (now()),
@@ -47,7 +48,7 @@ CREATE TABLE `product_categories` (
 CREATE TABLE `orders` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `user_id` int,
-  `status` varchar(255) NOT NULL DEFAULT 'pending',
+  `status` ENUM ('pending', 'processing', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
   `total` decimal(10,2) NOT NULL,
   `created_at` datetime DEFAULT (now()),
   `updated_at` datetime DEFAULT (now())
@@ -107,6 +108,7 @@ CREATE TABLE `articles` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
+  `status` ENUM ('draft', 'published', 'private', 'deleted'),
   `user_id` int,
   `created_at` datetime DEFAULT (now()),
   `updated_at` datetime DEFAULT (now())

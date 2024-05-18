@@ -1,3 +1,39 @@
+Project Ecommerce {
+  database_type: 'MySQL'
+  Note: '''
+    # Ecommerce Database
+    **markdown content here**
+    https://dbdocs.io/docs
+    https://qiita.com/genzouw/items/35022fa96c120e67c63
+    http://kwski.net/mysql/602/
+  '''
+}
+
+
+Enum type_order_status {
+  pending
+  processing
+  completed
+  cancelled
+}
+
+
+Enum type_product_status {    
+  active
+  inactive
+  deleted
+  out_of_stock
+  in_stock
+  running_low [note: 'less than 20']
+}
+
+Enum type_article_status {
+  draft
+  published
+  private
+  deleted
+}
+
 Table users {
   id int [pk, increment] // Primary key
   name varchar [not null]
@@ -32,6 +68,7 @@ Table products {
   id int [pk, increment] // Primary key
   name varchar [not null]
   description text
+  status type_product_status
   price decimal(10, 2) [not null] // Precision: 10, Scale: 2
   stock int [not null, default: 0]
   created_at datetime [default: `now()`]
@@ -65,7 +102,7 @@ Table product_categories {
 Table orders {
   id int [pk, increment] // Primary key
   user_id int
-  status varchar [not null, default: 'pending']
+  status type_order_status [not null, default: 'pending']
   total decimal(10, 2) [not null] // Precision: 10, Scale: 2
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
@@ -156,6 +193,7 @@ Table articles {
   id int [pk, increment] // Primary key
   title varchar [not null]
   content text [not null]
+  status type_article_status
   user_id int
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
