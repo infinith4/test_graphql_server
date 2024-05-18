@@ -116,6 +116,7 @@ Table payments {
   updated_at datetime [default: `now()`]
 
   Indexes {
+    id [unique, name: "ui_carts_id"]
     idx_payments_order_id (order_id)
     idx_payments_status (payment_status)
   }
@@ -128,7 +129,8 @@ Table carts {
   updated_at datetime [default: `now()`]
 
   Indexes {
-    idx_carts_user_id (user_id)
+    id [unique, name: "ui_carts_id"]
+    user_id [name: "idx_carts_user_id"]
   }
 }
 
@@ -141,8 +143,9 @@ Table cart_items {
   updated_at datetime [default: `now()`]
 
   Indexes {
-    idx_cart_items_cart_id (cart_id)
-    idx_cart_items_product_id (product_id)
+    id [unique, name: "ui_cart_items_id"]
+    cart_id [name: "idx_cart_items_cart_id"]
+    product_id [name: "idx_cart_items_product_id"]
   }
 }
 
@@ -155,7 +158,7 @@ Table articles {
   updated_at datetime [default: `now()`]
 
   Indexes {
-    id [name: "ui_articles_id"]
+    id [unique, name: "ui_articles_id"]
     user_id [name: "idx_articles_user_id"]
   }
 }
