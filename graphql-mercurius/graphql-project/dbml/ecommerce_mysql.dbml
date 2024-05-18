@@ -1,0 +1,175 @@
+Table users {
+  id int [pk, increment] // Primary key
+  name varchar [not null]
+  username varchar [not null]
+  email varchar [unique, not null]
+  hashed_password varchar [not null]
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    username [unique, name: "ui_users_username"]
+    email [name: "idx_users_email"]
+  }
+}
+
+Table customers {
+  id int [pk, increment] // Primary key
+  user_id int [not null] // Foreign key, unique constraint
+  address varchar
+  phone varchar
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    user_id [unique, name: "ui_customers_user_id"]
+  }
+}
+
+Table products {
+  id int [pk, increment] // Primary key
+  name varchar [not null]
+  description text
+  price decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  stock int [not null, default: 0]
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    id [unique, name: "ui_products_id"]
+  }
+}
+
+Table categories {
+  id int [pk, increment] // Primary key
+  name varchar [not null, unique]
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    id [name: "ui_categories_id"]
+  }
+}
+
+Table product_categories {
+  product_id int
+  category_id int
+  primary key (product_id, category_id)
+}
+
+Table orders {
+  id int [pk, increment] // Primary key
+  user_id int
+  status varchar [not null, default: 'pending']
+  total decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    id [name: "ui_orders_id"]
+    user_id [name: "idx_orders_user_id"]
+  }
+}
+
+Table order_items {
+  id int [pk, increment] // Primary key
+  order_id int
+  product_id int
+  quantity int [not null]
+  price decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  total decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    (order_id, product_id) [pk]
+    order_id [name: "idx_order_items_order_id"]
+    product_id [name: "idx_order_items_product_id"]
+  }
+}
+
+Table addresses {
+  id int [pk, increment] // Primary key
+  user_id int
+  address_line1 varchar [not null]
+  address_line2 varchar
+  city varchar [not null]
+  state varchar [not null]
+  postal_code varchar [not null]
+  country varchar [not null]
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    idx_addresses_user_id (user_id)
+    idx_addresses_postal_code (postal_code)
+  }
+}
+
+Table payments {
+  id int [pk, increment] // Primary key
+  order_id int
+  amount decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  payment_method varchar [not null]
+  payment_status varchar [not null]
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    idx_payments_order_id (order_id)
+    idx_payments_status (payment_status)
+  }
+}
+
+Table carts {
+  id int [pk, increment] // Primary key
+  user_id int
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    idx_carts_user_id (user_id)
+  }
+}
+
+Table cart_items {
+  id int [pk, increment] // Primary key
+  cart_id int
+  product_id int
+  quantity int [not null, default: 1]
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    idx_cart_items_cart_id (cart_id)
+    idx_cart_items_product_id (product_id)
+  }
+}
+
+Table articles {
+  id int [pk, increment] // Primary key
+  title varchar [not null]
+  content text [not null]
+  author_id int
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+
+  Indexes {
+    idx_articles_title (title)
+    idx_articles_author_id (author_id)
+  }
+}
+
+// Relations
+Ref "fk_product_categories_product_id_products_id" :  product_categories.product_id > products.id
+Ref "fk_product_categories_category_id_categories_id" :  product_categories.category_id > categories.id
+Ref "fk_orders_user_id_users_id": orders.user_id > users.id
+Ref "fk_order_items_order_id_orders_id": order_items.order_id > orders.id
+Ref "fk_order_items_product_id_products_id": order_items.product_id > products.id
+Ref "fk_addresses_user_id_users_id": addresses.user_id > users.id
+Ref "fk_payments_order_id_orders_id" :payments.order_id > orders.id
+Ref "fk_carts_user_id_users_id": carts.user_id > users.id
+Ref "fk_cart_items_cart_id_carts_id" :cart_items.cart_id > carts.id
+Ref "fk_cart_items_product_id_products_id": cart_items.product_id > products.id
+Ref "fk_articles_author_id_users_id": articles.author_id > users.id
+Ref "fk_customers_user_id_users_id" :customers.user_id > users.id [delete: cascade, update: cascade]
