@@ -69,7 +69,7 @@ Table products {
   name varchar [not null]
   description text
   status type_product_status
-  price decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  price decimal [not null]
   stock int [not null, default: 0]
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
@@ -103,7 +103,7 @@ Table orders {
   id int [pk, increment] // Primary key
   user_id int
   status type_order_status [not null, default: 'pending']
-  total decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  total decimal [not null] // Precision: 10, Scale: 2
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
 
@@ -117,8 +117,7 @@ Table order_items {
   order_id int
   product_id int
   quantity int [not null]
-  price decimal(10, 2) [not null] // Precision: 10, Scale: 2
-  total decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  price decimal [not null] // Precision: 10, Scale: 2
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
 
@@ -150,7 +149,7 @@ Table customer_addresses {
 Table payments {
   id int [pk, increment] // Primary key
   order_id int
-  amount decimal(10, 2) [not null] // Precision: 10, Scale: 2
+  amount decimal [not null] // Precision: 10, Scale: 2
   payment_method varchar [not null]
   payment_status varchar [not null]
   created_at datetime [default: `now()`]

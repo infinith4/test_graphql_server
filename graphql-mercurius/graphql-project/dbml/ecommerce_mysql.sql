@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml.dbdiagram.io)
 -- Database: MySQL
--- Generated at: 2024-05-18T03:34:22.407Z
+-- Generated at: 2024-05-18T03:41:33.466Z
 
 CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE `products` (
   `name` varchar(255) NOT NULL,
   `description` text,
   `status` ENUM ('active', 'inactive', 'deleted', 'out_of_stock', 'in_stock', 'running_low'),
-  `price` decimal(10,2) NOT NULL,
+  `price` decimal NOT NULL,
   `stock` int NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT (now()),
   `updated_at` datetime DEFAULT (now())
@@ -49,7 +49,7 @@ CREATE TABLE `orders` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `user_id` int,
   `status` ENUM ('pending', 'processing', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
-  `total` decimal(10,2) NOT NULL,
+  `total` decimal NOT NULL,
   `created_at` datetime DEFAULT (now()),
   `updated_at` datetime DEFAULT (now())
 );
@@ -58,8 +58,7 @@ CREATE TABLE `order_items` (
   `order_id` int,
   `product_id` int,
   `quantity` int NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `total` decimal(10,2) NOT NULL,
+  `price` decimal NOT NULL,
   `created_at` datetime DEFAULT (now()),
   `updated_at` datetime DEFAULT (now()),
   PRIMARY KEY (`order_id`, `product_id`)
@@ -81,7 +80,7 @@ CREATE TABLE `customer_addresses` (
 CREATE TABLE `payments` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `order_id` int,
-  `amount` decimal(10,2) NOT NULL,
+  `amount` decimal NOT NULL,
   `payment_method` varchar(255) NOT NULL,
   `payment_status` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT (now()),

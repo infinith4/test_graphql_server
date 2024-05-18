@@ -1,0 +1,191 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table articles {
+  id Int [pk, increment]
+  title String [not null]
+  content String [not null]
+  status articles_status
+  user_id Int
+  created_at DateTime
+  updated_at DateTime
+  users users
+}
+
+Table cart_items {
+  id Int [pk, increment]
+  cart_id Int
+  product_id Int
+  quantity Int [not null, default: 1]
+  created_at DateTime
+  updated_at DateTime
+  carts carts
+  products products
+}
+
+Table carts {
+  id Int [pk, increment]
+  user_id Int
+  created_at DateTime
+  updated_at DateTime
+  cart_items cart_items [not null]
+  users users
+}
+
+Table categories {
+  id Int [pk, increment]
+  name String [unique, not null]
+  created_at DateTime
+  updated_at DateTime
+  product_categories product_categories [not null]
+}
+
+Table customer_addresses {
+  id Int [pk, increment]
+  customer_id Int [not null]
+  address_line1 String [not null]
+  address_line2 String
+  city String [not null]
+  state String [not null]
+  postal_code String [not null]
+  country String [not null]
+  created_at DateTime
+  updated_at DateTime
+  customers customers [not null]
+}
+
+Table customers {
+  id Int [pk, increment]
+  user_id Int [unique, not null]
+  address String
+  phone String
+  created_at DateTime
+  updated_at DateTime
+  customer_addresses customer_addresses [not null]
+  users users [not null]
+}
+
+Table order_items {
+  order_id Int [not null]
+  product_id Int [not null]
+  quantity Int [not null]
+  price Decimal [not null]
+  created_at DateTime
+  updated_at DateTime
+  orders orders [not null]
+  products products [not null]
+
+  indexes {
+    (order_id, product_id) [pk]
+  }
+}
+
+Table orders {
+  id Int [pk, increment]
+  user_id Int
+  status orders_status [not null, default: 'pending']
+  total Decimal [not null]
+  created_at DateTime
+  updated_at DateTime
+  order_items order_items [not null]
+  users users
+  payments payments [not null]
+}
+
+Table payments {
+  id Int [pk, increment]
+  order_id Int
+  amount Decimal [not null]
+  payment_method String [not null]
+  payment_status String [not null]
+  created_at DateTime
+  updated_at DateTime
+  orders orders
+}
+
+Table product_categories {
+  product_id Int [not null]
+  category_id Int [not null]
+  categories categories [not null]
+  products products [not null]
+
+  indexes {
+    (product_id, category_id) [pk]
+  }
+}
+
+Table products {
+  id Int [pk, increment]
+  name String [not null]
+  description String
+  status products_status
+  price Decimal [not null]
+  stock Int [not null, default: 0]
+  created_at DateTime
+  updated_at DateTime
+  cart_items cart_items [not null]
+  order_items order_items [not null]
+  product_categories product_categories [not null]
+}
+
+Table users {
+  id Int [pk, increment]
+  name String [not null]
+  username String [unique, not null]
+  email String [unique, not null]
+  hashed_password String [not null]
+  created_at DateTime
+  updated_at DateTime
+  articles articles [not null]
+  carts carts [not null]
+  customers customers
+  orders orders [not null]
+}
+
+Enum orders_status {
+  pending
+  processing
+  completed
+  cancelled
+}
+
+Enum products_status {
+  active
+  inactive
+  deleted
+  out_of_stock
+  in_stock
+  running_low
+}
+
+Enum articles_status {
+  draft
+  published
+  private
+  deleted
+}
+
+Ref: articles.user_id > users.id [delete: No Action]
+
+Ref: cart_items.cart_id > carts.id [delete: No Action]
+
+Ref: cart_items.product_id > products.id [delete: No Action]
+
+Ref: carts.user_id > users.id [delete: No Action]
+
+Ref: customer_addresses.customer_id > customers.id [delete: No Action]
+
+Ref: customers.user_id - users.id [delete: Cascade]
+
+Ref: order_items.order_id > orders.id [delete: No Action]
+
+Ref: order_items.product_id > products.id [delete: No Action]
+
+Ref: orders.user_id > users.id [delete: No Action]
+
+Ref: payments.order_id > orders.id [delete: No Action]
+
+Ref: product_categories.category_id > categories.id [delete: No Action]
+
+Ref: product_categories.product_id > products.id [delete: No Action]

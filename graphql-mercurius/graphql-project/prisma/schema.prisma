@@ -93,8 +93,7 @@ model order_items {
   order_id   Int
   product_id Int
   quantity   Int
-  price      Decimal   @db.Decimal(10, 2)
-  total      Decimal   @db.Decimal(10, 2)
+  price      Decimal   @db.Decimal(10, 0)
   created_at DateTime? @default(dbgenerated("(now())")) @db.DateTime(0)
   updated_at DateTime? @default(dbgenerated("(now())")) @db.DateTime(0)
   orders     orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_items_order_id_orders_id")
@@ -109,7 +108,7 @@ model orders {
   id          Int           @id @unique(map: "ui_orders_id") @default(autoincrement())
   user_id     Int?
   status      orders_status @default(pending)
-  total       Decimal       @db.Decimal(10, 2)
+  total       Decimal       @db.Decimal(10, 0)
   created_at  DateTime?     @default(dbgenerated("(now())")) @db.DateTime(0)
   updated_at  DateTime?     @default(dbgenerated("(now())")) @db.DateTime(0)
   order_items order_items[]
@@ -122,7 +121,7 @@ model orders {
 model payments {
   id             Int       @id @unique(map: "ui_payments_id") @default(autoincrement())
   order_id       Int?
-  amount         Decimal   @db.Decimal(10, 2)
+  amount         Decimal   @db.Decimal(10, 0)
   payment_method String    @db.VarChar(255)
   payment_status String    @db.VarChar(255)
   created_at     DateTime? @default(dbgenerated("(now())")) @db.DateTime(0)
@@ -147,7 +146,7 @@ model products {
   name               String               @db.VarChar(255)
   description        String?              @db.Text
   status             products_status?
-  price              Decimal              @db.Decimal(10, 2)
+  price              Decimal              @db.Decimal(10, 0)
   stock              Int                  @default(0)
   created_at         DateTime?            @default(dbgenerated("(now())")) @db.DateTime(0)
   updated_at         DateTime?            @default(dbgenerated("(now())")) @db.DateTime(0)
