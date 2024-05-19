@@ -1,34 +1,34 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ProductCategoriesService } from './product-categories.service';
-import { ProductCategory } from './entities/product-category.entity';
+import { product_categories } from './entities/product-category.entity';
 import { CreateProductCategoryInput } from './dto/create-product-category.input';
 import { UpdateProductCategoryInput } from './dto/update-product-category.input';
 
-@Resolver(() => ProductCategory)
+@Resolver(() => product_categories)
 export class ProductCategoriesResolver {
   constructor(private readonly productCategoriesService: ProductCategoriesService) {}
 
-  @Mutation(() => ProductCategory)
+  @Mutation(() => product_categories)
   createProductCategory(@Args('createProductCategoryInput') createProductCategoryInput: CreateProductCategoryInput) {
     return this.productCategoriesService.create(createProductCategoryInput);
   }
 
-  @Query(() => [ProductCategory], { name: 'productCategories' })
+  @Query(() => [product_categories], { name: 'productCategories' })
   findAll() {
     return this.productCategoriesService.findAll();
   }
 
-  @Query(() => ProductCategory, { name: 'productCategory' })
+  @Query(() => product_categories, { name: 'productCategory' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.productCategoriesService.findOne(id);
   }
 
-  @Mutation(() => ProductCategory)
+  @Mutation(() => product_categories)
   updateProductCategory(@Args('updateProductCategoryInput') updateProductCategoryInput: UpdateProductCategoryInput) {
     return this.productCategoriesService.update(updateProductCategoryInput.id, updateProductCategoryInput);
   }
 
-  @Mutation(() => ProductCategory)
+  @Mutation(() => product_categories)
   removeProductCategory(@Args('id', { type: () => Int }) id: number) {
     return this.productCategoriesService.remove(id);
   }

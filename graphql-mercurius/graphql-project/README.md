@@ -166,10 +166,18 @@ https://zenn.dev/mano_r/articles/8d25be4b4452dd
 以上の手順に従うことで、schema.prismaの内容を考慮したNestJSリソースを手動で設定できます。自動化ツールが直接的に対応していない場合でも、この方法を使用すれば、Prismaスキーマに基づいたリソースを構築することができます。今後のバージョンでは、さらに簡単に統合できるツールや機能が提供される可能性がありますが、現時点ではこのように手動で対応するのが一般的です。
 
 
+npx nest g resource modules/articles
 npx nest g resource modules/cart-items
+npx nest g resource modules/carts
+npx nest g resource modules/categories
+npx nest g resource modules/customer-addresses
+npx nest g resource modules/customers
 npx nest g resource modules/order-items
-npx nest g resource modules/product-items
+npx nest g resource modules/orders
+npx nest g resource modules/payments
 npx nest g resource modules/product-categories
+npx nest g resource modules/products
+npx nest g resource modules/users
 
 
 cat src/@generated/prisma-nestjs-graphql/products/products.model.ts > src/modules/products/entities/product.entity.ts
@@ -177,9 +185,33 @@ cat src/@generated/prisma-nestjs-graphql/cart-items/cart-items.model.ts > src/mo
 cat src/@generated/prisma-nestjs-graphql/order-items/order-items.model.ts > src/modules/order-items/entities/order-item.entity.ts
 cat src/@generated/prisma-nestjs-graphql/product-categories/product-categories.model.ts > src/modules/product-categories/entities/product-category.entity.ts
 cat src/@generated/prisma-nestjs-graphql/products/products.model.ts > src/modules/products/entities/product.entity.ts
+cat src/@generated/prisma-nestjs-graphql/articles/articles.model.ts > src/modules/articles/entities/article.entity.ts
+cat src/@generated/prisma-nestjs-graphql/cart-items/cart-items.model.ts > src/modules/cart-items/entities/cart-item.entity.ts
+cat src/@generated/prisma-nestjs-graphql/carts/carts.model.ts > src/modules/carts/entities/cart.entity.ts
+cat src/@generated/prisma-nestjs-graphql/categories/categories.model.ts > src/modules/categories/entities/category.entity.ts
+cat src/@generated/prisma-nestjs-graphql/customer-addresses/customer-addresses.model.ts > src/modules/customer-addresses/entities/customer-address.entity.ts
+cat src/@generated/prisma-nestjs-graphql/customers/customers.model.ts > src/modules/customers/entities/customer.entity.ts
+cat src/@generated/prisma-nestjs-graphql/order-items/order-items.model.ts > src/modules/order-items/entities/order-item.entity.ts
+cat src/@generated/prisma-nestjs-graphql/orders/orders.model.ts > src/modules/orders/entities/order.entity.ts
+cat src/@generated/prisma-nestjs-graphql/payments/payments.model.ts > src/modules/payments/entities/payment.entity.ts
+cat src/@generated/prisma-nestjs-graphql/product-categories/product-categories.model.ts > src/modules/product-categories/entities/product-category.entity.ts
+cat src/@generated/prisma-nestjs-graphql/product-categories/product-categories.model.ts > src/modules/product-categories/entities/product-category.entity.ts
+cat src/@generated/prisma-nestjs-graphql/products/products.model.ts > src/modules/products/entities/product.entity.ts
+cat src/@generated/prisma-nestjs-graphql/users/users.model.ts > src/modules/users/entities/user.entity.ts
+
+
+
 cp src/@generated/prisma-nestjs-graphql/prisma/products-status.enum.ts src/modules/products/entities
 
+cp src/@generated/prisma-nestjs-graphql/prisma/categories-count.output.ts src/modules/categories/entities
 
+cp src/@generated/prisma-nestjs-graphql/prisma/customers-count.output.ts src/modules/customers/entities
+
+cp src/@generated/prisma-nestjs-graphql/prisma/users-count.output.ts src/modules/users/entities
+cp src/@generated/prisma-nestjs-graphql/prisma/orders-status.enum.ts src/modules/orders/entities
+cp src/@generated/prisma-nestjs-graphql/prisma/orders-count.output.ts src/modules/orders/entities
+cp src/@generated/prisma-nestjs-graphql/prisma/carts-count.output.ts src/modules/carts/entities
+cp src/@generated/prisma-nestjs-graphql/prisma/articles-status.enum.ts src/modules/articles/entities
 
 
 

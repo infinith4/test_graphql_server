@@ -1,25 +1,28 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { Decimal } from '@prisma/client/runtime/library';
 import { orders } from '../../orders/entities/order.entity';
-import { products } from '../../products/entities/product.entity';
 
 @ObjectType()
-export class order_items {
+export class payments {
 
-    @Field(() => Int, {nullable:false})
-    order_id!: number;
+    @Field(() => ID, {nullable:false})
+    id!: number;
 
-    @Field(() => Int, {nullable:false})
-    product_id!: number;
-
-    @Field(() => Int, {nullable:false})
-    quantity!: number;
+    @Field(() => Int, {nullable:true})
+    order_id!: number | null;
 
     @Field(() => GraphQLDecimal, {nullable:false})
-    price!: Decimal;
+    amount!: Decimal;
+
+    @Field(() => String, {nullable:false})
+    payment_method!: string;
+
+    @Field(() => String, {nullable:false})
+    payment_status!: string;
 
     @Field(() => Date, {nullable:true})
     created_at!: Date | null;
@@ -27,9 +30,6 @@ export class order_items {
     @Field(() => Date, {nullable:true})
     updated_at!: Date | null;
 
-    @Field(() => orders, {nullable:false})
-    orders?: orders;
-
-    @Field(() => products, {nullable:false})
-    products?: products;
+    @Field(() => orders, {nullable:true})
+    orders?: orders | null;
 }

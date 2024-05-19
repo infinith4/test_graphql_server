@@ -2,8 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { carts } from '../carts/carts.model';
-import { products } from '../products/products.model';
+import { carts } from '../../carts/entities/cart.entity';
+import { products } from '../../products/entities/product.entity';
 
 @ObjectType()
 export class cart_items {

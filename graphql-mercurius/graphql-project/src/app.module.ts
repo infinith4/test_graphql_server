@@ -23,8 +23,15 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ProductsModule } from './modules/products/products.module';
 import { CartItemsModule } from './modules/cart-items/cart-items.module';
 import { OrderItemsModule } from './modules/order-items/order-items.module';
-import { ProductItemsModule } from './modules/product-items/product-items.module';
 import { ProductCategoriesModule } from './modules/product-categories/product-categories.module';
+import { ArticlesModule } from './modules/articles/articles.module';
+import { CartsModule } from './modules/carts/carts.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { CustomerAddressesModule } from './modules/customer-addresses/customer-addresses.module';
+import { CustomersModule } from './modules/customers/customers.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { PaymentsModule } from './modules/payments/payments.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -37,8 +44,15 @@ import { ProductCategoriesModule } from './modules/product-categories/product-ca
     ProductsModule,
     CartItemsModule,
     OrderItemsModule,
-    ProductItemsModule,
     ProductCategoriesModule,
+    ArticlesModule,
+    CartsModule,
+    CategoriesModule,
+    CustomerAddressesModule,
+    CustomersModule,
+    OrdersModule,
+    PaymentsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
