@@ -166,4 +166,24 @@ https://zenn.dev/mano_r/articles/8d25be4b4452dd
 以上の手順に従うことで、schema.prismaの内容を考慮したNestJSリソースを手動で設定できます。自動化ツールが直接的に対応していない場合でも、この方法を使用すれば、Prismaスキーマに基づいたリソースを構築することができます。今後のバージョンでは、さらに簡単に統合できるツールや機能が提供される可能性がありますが、現時点ではこのように手動で対応するのが一般的です。
 
 
+npx nest g resource modules/cart-items
+npx nest g resource modules/order-items
+npx nest g resource modules/product-items
+npx nest g resource modules/product-categories
+
+
 cat src/@generated/prisma-nestjs-graphql/products/products.model.ts > src/modules/products/entities/product.entity.ts
+cat src/@generated/prisma-nestjs-graphql/cart-items/cart-items.model.ts > src/modules/cart-items/entities/cart-item.entity.ts
+cat src/@generated/prisma-nestjs-graphql/order-items/order-items.model.ts > src/modules/order-items/entities/order-item.entity.ts
+cat src/@generated/prisma-nestjs-graphql/product-categories/product-categories.model.ts > src/modules/product-categories/entities/product-category.entity.ts
+cat src/@generated/prisma-nestjs-graphql/products/products.model.ts > src/modules/products/entities/product.entity.ts
+cp src/@generated/prisma-nestjs-graphql/prisma/products-status.enum.ts src/modules/products/entities
+
+
+
+
+
+
+import { products_status } from '../prisma/products-status.enum';
+
+npm run start:dev
