@@ -129,3 +129,41 @@ npx dbml2sql dbml/ecommerce_mysql.dbml -o dbml/ecommerce_mysql.sql --mysql
 ## seed
 
 npx prisma db seed
+
+
+## prisma to graphql
+
+npx prisma generate
+
+src/@generated/prisma-nestjs-graphql に生成される
+
+
+### modules 生成
+
+npx nest g resource modules/xxx
+
+npx nest g resource modules/users
+npx nest g resource modules/products
+
+node ➜ /graphql-project $ npx nest g resource modules/products
+? What transport layer do you use? GraphQL (code first)
+? Would you like to generate CRUD entry points? Yes
+
+CREATE src/modules/products/products.module.ts (246 bytes)
+CREATE src/modules/products/products.resolver.spec.ts (555 bytes)
+CREATE src/modules/products/products.resolver.ts (1217 bytes)
+CREATE src/modules/products/products.service.spec.ts (474 bytes)
+CREATE src/modules/products/products.service.ts (667 bytes)
+CREATE src/modules/products/dto/create-product.input.ts (199 bytes)
+CREATE src/modules/products/dto/update-product.input.ts (255 bytes)
+CREATE src/modules/products/entities/product.entity.ts (190 bytes)
+UPDATE src/app.module.ts (1312 bytes)
+
+
+https://zenn.dev/mano_r/articles/8d25be4b4452dd
+
+まとめ
+以上の手順に従うことで、schema.prismaの内容を考慮したNestJSリソースを手動で設定できます。自動化ツールが直接的に対応していない場合でも、この方法を使用すれば、Prismaスキーマに基づいたリソースを構築することができます。今後のバージョンでは、さらに簡単に統合できるツールや機能が提供される可能性がありますが、現時点ではこのように手動で対応するのが一般的です。
+
+
+cat src/@generated/prisma-nestjs-graphql/products/products.model.ts > src/modules/products/entities/product.entity.ts
