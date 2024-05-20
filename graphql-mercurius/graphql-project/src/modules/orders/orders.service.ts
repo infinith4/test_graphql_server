@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
-
+import { PrismaService } from 'nestjs-prisma';
 @Injectable()
 export class OrdersService {
+  constructor(private readonly prisma: PrismaService) {}
   create(createOrderInput: CreateOrderInput) {
     return 'This action adds a new order';
   }
 
   findAll() {
-    return `This action returns all orders`;
+    return this.prisma.orders.findMany({
+    });
   }
 
   findOne(id: number) {
