@@ -214,6 +214,9 @@ cp src/@generated/prisma-nestjs-graphql/prisma/carts-count.output.ts src/modules
 cp src/@generated/prisma-nestjs-graphql/prisma/articles-status.enum.ts src/modules/articles/entities
 
 
+cp src/@generated/prisma-nestjs-graphql/prisma/articles-status.enum.ts src/modules/articles/entities
+
+
 
 
 import { products_status } from '../prisma/products-status.enum';
