@@ -1,11 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { categories } from '../../categories/entities/category.entity';
-import { products } from '../../products/entities/product.entity';
+import { Category } from '../../categories/entities/category.entity';
+import { Product } from '../../products/entities/product.entity';
 
 @ObjectType()
-export class product_categories {
+export class ProductCategory {
 
     @Field(() => Int, {nullable:false})
     product_id!: number;
@@ -13,9 +13,9 @@ export class product_categories {
     @Field(() => Int, {nullable:false})
     category_id!: number;
 
-    @Field(() => categories, {nullable:false})
-    categories?: categories;
+    @Field(() => Category, {nullable:false})
+    categories?: Category;
 
-    @Field(() => products, {nullable:false})
-    products?: products;
+    @Field(() => Product, {nullable:false})
+    products?: Product;
 }

@@ -1,17 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { products_status } from '../../products/entities/products-status.enum';
+import { ProductStatus } from '../../products/entities/products-status.enum';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { Decimal } from '@prisma/client/runtime/library';
 import { Int } from '@nestjs/graphql';
 import { cart_items } from '../../cart-items/entities/cart-item.entity';
-import { order_items } from '../../order-items/entities/order-item.entity';
-import { product_categories } from '../../product-categories/entities/product-category.entity';
-import { ProductsCount } from '../../products/entities/products-count.output';
+import { OrderItem } from '../../order-items/entities/order-item.entity';
+import { ProductCategory } from '../../product-categories/entities/product-category.entity';
+import { ProductCount } from '../../products/entities/products-count.output';
 
 @ObjectType()
-export class products {
+export class Product {
 
     @Field(() => ID, {nullable:false})
     id!: number;
@@ -22,8 +22,8 @@ export class products {
     @Field(() => String, {nullable:true})
     description!: string | null;
 
-    @Field(() => products_status, {nullable:true})
-    status!: keyof typeof products_status | null;
+    @Field(() => ProductStatus, {nullable:true})
+    status!: keyof typeof ProductStatus | null;
 
     @Field(() => GraphQLDecimal, {nullable:false})
     price!: Decimal;
@@ -40,12 +40,12 @@ export class products {
     @Field(() => [cart_items], {nullable:true})
     cart_items?: Array<cart_items>;
 
-    @Field(() => [order_items], {nullable:true})
-    order_items?: Array<order_items>;
+    @Field(() => [OrderItem], {nullable:true})
+    order_items?: Array<OrderItem>;
 
-    @Field(() => [product_categories], {nullable:true})
-    product_categories?: Array<product_categories>;
+    @Field(() => [ProductCategory], {nullable:true})
+    product_categories?: Array<ProductCategory>;
 
-    @Field(() => ProductsCount, {nullable:false})
-    _count?: ProductsCount;
+    @Field(() => ProductCount, {nullable:false})
+    _count?: ProductCount;
 }

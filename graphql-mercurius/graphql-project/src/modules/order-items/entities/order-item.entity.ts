@@ -4,10 +4,10 @@ import { Int } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { Decimal } from '@prisma/client/runtime/library';
 import { orders } from '../../orders/entities/order.entity';
-import { products } from '../../products/entities/product.entity';
+import { Product } from '../../products/entities/product.entity';
 
 @ObjectType()
-export class order_items {
+export class OrderItem {
 
     @Field(() => Int, {nullable:false})
     order_id!: number;
@@ -30,6 +30,6 @@ export class order_items {
     @Field(() => orders, {nullable:false})
     orders?: orders;
 
-    @Field(() => products, {nullable:false})
-    products?: products;
+    @Field(() => Product, {nullable:false})
+    products?: Product;
 }

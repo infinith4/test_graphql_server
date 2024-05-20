@@ -1,6 +1,6 @@
 import { registerEnumType } from '@nestjs/graphql';
 
-export enum articles_status {
+export enum ArticleStatus {
     draft = "draft",
     published = "published",
     'private' = "private",
@@ -8,4 +8,4 @@ export enum articles_status {
 }
 
 
-registerEnumType(articles_status, { name: 'articles_status', description: undefined })
+registerEnumType(ArticleStatus, { name: 'ArticleStatus', description: undefined })

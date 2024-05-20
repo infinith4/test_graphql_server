@@ -3,7 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 
 @ObjectType()
-export class ProductsCount {
+export class ProductCount {
 
     @Field(() => Int, {nullable:false})
     cart_items!: number;

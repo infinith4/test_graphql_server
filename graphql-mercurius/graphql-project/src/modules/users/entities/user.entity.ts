@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { articles } from '../../articles/entities/article.entity';
+import { Article } from '../../articles/entities/article.entity';
 import { carts } from '../../carts/entities/cart.entity';
-import { customers } from '../../customers/entities/customer.entity';
+import { Customer } from '../../customers/entities/customer.entity';
 import { orders } from '../../orders/entities/order.entity';
 import { UsersCount } from './users-count.output';
 
@@ -31,14 +31,14 @@ export class users {
     @Field(() => Date, {nullable:true})
     updated_at!: Date | null;
 
-    @Field(() => [articles], {nullable:true})
-    articles?: Array<articles>;
+    @Field(() => [Article], {nullable:true})
+    articles?: Array<Article>;
 
     @Field(() => [carts], {nullable:true})
     carts?: Array<carts>;
 
-    @Field(() => customers, {nullable:true})
-    customers?: customers | null;
+    @Field(() => Customer, {nullable:true})
+    customers?: Customer | null;
 
     @Field(() => [orders], {nullable:true})
     orders?: Array<orders>;

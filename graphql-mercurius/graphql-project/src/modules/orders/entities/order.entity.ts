@@ -5,7 +5,7 @@ import { Int } from '@nestjs/graphql';
 import { orders_status } from '../../orders/entities/orders-status.enum';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { Decimal } from '@prisma/client/runtime/library';
-import { order_items } from '../../order-items/entities/order-item.entity';
+import { OrderItem } from '../../order-items/entities/order-item.entity';
 import { users } from '../../users/entities/user.entity';
 import { payments } from '../../payments/entities/payment.entity';
 import { OrdersCount } from './orders-count.output';
@@ -31,8 +31,8 @@ export class orders {
     @Field(() => Date, {nullable:true})
     updated_at!: Date | null;
 
-    @Field(() => [order_items], {nullable:true})
-    order_items?: Array<order_items>;
+    @Field(() => [OrderItem], {nullable:true})
+    order_items?: Array<OrderItem>;
 
     @Field(() => users, {nullable:true})
     users?: users | null;

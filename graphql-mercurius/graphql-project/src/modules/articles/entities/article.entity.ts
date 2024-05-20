@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { articles_status } from './articles-status.enum';
+import { ArticleStatus } from './articles-status.enum';
 import { Int } from '@nestjs/graphql';
 import { users } from '../../users/entities/user.entity';
 
 @ObjectType()
-export class articles {
+export class Article {
 
     @Field(() => ID, {nullable:false})
     id!: number;
@@ -17,8 +17,8 @@ export class articles {
     @Field(() => String, {nullable:false})
     content!: string;
 
-    @Field(() => articles_status, {nullable:true})
-    status!: keyof typeof articles_status | null;
+    @Field(() => ArticleStatus, {nullable:true})
+    status!: keyof typeof ArticleStatus | null;
 
     @Field(() => Int, {nullable:true})
     user_id!: number | null;

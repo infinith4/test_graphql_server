@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { customers } from '../../customers/entities/customer.entity';
+import { Customer } from '../../customers/entities/customer.entity';
 
 @ObjectType()
-export class customer_addresses {
+export class CustomerAddress {
 
     @Field(() => ID, {nullable:false})
     id!: number;
@@ -37,6 +37,6 @@ export class customer_addresses {
     @Field(() => Date, {nullable:true})
     updated_at!: Date | null;
 
-    @Field(() => customers, {nullable:false})
-    customers?: customers;
+    @Field(() => Customer, {nullable:false})
+    customers?: Customer;
 }
