@@ -39,6 +39,10 @@ type CustomerAddress {
   customers: Customer!
 }
 
+type CustomerCount {
+  customer_addresses: Int!
+}
+
 type Customer {
   id: ID!
   user_id: Int!
@@ -48,6 +52,7 @@ type Customer {
   updated_at: DateTime
   customer_addresses: [CustomerAddress!]
   users: users!
+  _count: CustomerCount!
 }
 
 type OrderItem {

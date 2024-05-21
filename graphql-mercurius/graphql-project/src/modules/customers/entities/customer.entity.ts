@@ -4,7 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { CustomerAddress } from '../../customer-addresses/entities/customer-address.entity';
 import { users } from '../../users/entities/user.entity';
-import { CustomersCount } from './customers-count.output';
+import { CustomerCount } from './customers-count.output';
 
 @ObjectType()
 export class Customer {
@@ -33,6 +33,6 @@ export class Customer {
     @Field(() => users, {nullable:false})
     users?: users;
 
-    // @Field(() => CustomersCount, {nullable:false})
-    // _count?: CustomersCount;
+    @Field(() => CustomerCount, {nullable:false})
+    _count?: CustomerCount;
 }
