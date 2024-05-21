@@ -222,3 +222,45 @@ cp src/@generated/prisma-nestjs-graphql/prisma/articles-status.enum.ts src/modul
 import { products_status } from '../prisma/products-status.enum';
 
 npm run start:dev
+
+
+## test
+
+
+npx ts-jest config:init
+
+npx jest src/check.test.ts
+npx jest src/greeter.test.ts
+
+npx jest src/modules/users/users.service.spec.ts
+npx jest src/modules/users/users.resolver.spec.ts
+
+
+
+## mutation
+
+```
+mutation{
+  createArticle(createArticleInput: {
+    title: "title"
+    status: draft
+    created_at: "2024-01-01"
+    content: "content01"
+  }){
+    id
+    title
+    content
+    status
+    created_at
+    updated_at
+    user_id
+  }
+}
+```
+
+
+cp src/\@generated/prisma-nestjs-graphql/users/users-create-nested-one-without-articles.input.ts src/modules/users/dto
+
+cp src/\@generated/prisma-nestjs-graphql/users/users-create-without-articles.input.ts  src/modules/users/dto
+cp src/\@generated/prisma-nestjs-graphql/users/users-create-or-connect-without-articles.input.ts src/modules/users/dto
+cp src/\@generated/prisma-nestjs-graphql/users/users-where-unique.input.ts src/modules/users/dto

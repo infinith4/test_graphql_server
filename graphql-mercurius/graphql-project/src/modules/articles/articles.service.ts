@@ -8,7 +8,8 @@ import { PrismaService } from 'nestjs-prisma';
 export class ArticlesService {
   constructor(private readonly prisma: PrismaService) {}
   create(createArticleInput: CreateArticleInput) {
-    return 'This action adds a new article';
+    console.log(createArticleInput);
+    return this.prisma.articles.create({ data: createArticleInput });
   }
 
   findAll() {
