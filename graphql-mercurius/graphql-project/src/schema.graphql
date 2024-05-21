@@ -312,13 +312,19 @@ input UpdateProductCategoryInput {
 }
 
 input CreateArticleInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  content: String!
+  status: ArticleStatus
+  created_at: DateTime
+  updated_at: DateTime
 }
 
 input UpdateArticleInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  content: String
+  status: ArticleStatus
+  created_at: DateTime
+  updated_at: DateTime
   id: Int!
 }
 
