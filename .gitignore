@@ -131,3 +131,5 @@ dist
 .DS_Store
 graphql-mercurius/mysql.env
 graphql-mercurius/docker
+prisma-graphql/docker
+prisma-graphql/mysql.env
