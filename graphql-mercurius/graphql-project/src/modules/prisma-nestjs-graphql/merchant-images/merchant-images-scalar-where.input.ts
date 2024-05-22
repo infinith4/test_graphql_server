@@ -1,0 +1,34 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { IntFilter } from '../prisma/int-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+
+@InputType()
+export class merchant_imagesScalarWhereInput {
+
+    @Field(() => [merchant_imagesScalarWhereInput], {nullable:true})
+    AND?: Array<merchant_imagesScalarWhereInput>;
+
+    @Field(() => [merchant_imagesScalarWhereInput], {nullable:true})
+    OR?: Array<merchant_imagesScalarWhereInput>;
+
+    @Field(() => [merchant_imagesScalarWhereInput], {nullable:true})
+    NOT?: Array<merchant_imagesScalarWhereInput>;
+
+    @Field(() => IntFilter, {nullable:true})
+    id?: IntFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    url?: StringNullableFilter;
+
+    @Field(() => IntFilter, {nullable:true})
+    merchant_id?: IntFilter;
+
+    @Field(() => DateTimeFilter, {nullable:true})
+    created_at?: DateTimeFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    updated_at?: DateTimeNullableFilter;
+}
