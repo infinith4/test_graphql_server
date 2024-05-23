@@ -30,6 +30,8 @@ services:
       - mysql.env
     ports:
       - 3309:3306
+    volumes:
+      - ./init_db:/docker-entrypoint-initdb.d
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin-test_graphql_server-prisma-graphql
