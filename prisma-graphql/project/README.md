@@ -13,3 +13,5 @@ npx prisma generate
 npm i typegraphql-prisma@0.9.3 -D
 
 npm i express express-graphql
+
+npm install -D prisma-docs-generator

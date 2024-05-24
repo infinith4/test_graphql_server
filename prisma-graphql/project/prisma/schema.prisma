@@ -13,6 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
+}
+
 generator typegraphql {
   provider = "typegraphql-prisma"
   output   = "../src/generated/typegraphql-prisma"
