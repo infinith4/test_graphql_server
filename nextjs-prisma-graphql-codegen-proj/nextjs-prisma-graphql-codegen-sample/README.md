@@ -52,3 +52,8 @@ https://tailwindcss.com/docs/guides/nextjs
 yarn add -D tailwindcss postcss autoprefixer
 
 npx tailwindcss init -p
+
+
+# prisma
+
+yarn add -D yarn add -D prisma
