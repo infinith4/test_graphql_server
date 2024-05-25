@@ -41,3 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 yarn dev
+
+
+
+yarn add -D @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-simple-import-sort prettier npm-run-all
