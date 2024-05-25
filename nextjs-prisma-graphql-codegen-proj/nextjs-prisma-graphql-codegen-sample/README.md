@@ -45,3 +45,10 @@ yarn add -D @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugi
 yarn format
 
 yarn lint
+
+
+https://tailwindcss.com/docs/guides/nextjs
+
+yarn add -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p
