@@ -21,4 +21,9 @@ export default NextAuth({
     }),
   ],
   secret: NEXTAUTH_SECRET,
+  callbacks: {
+    session({ session, token, user }) {
+      return session // The return type will match the one returned in `useSession()`
+    },
+  },
 })
