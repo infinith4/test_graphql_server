@@ -56,4 +56,11 @@ npx tailwindcss init -p
 
 # prisma
 
-yarn add -D yarn add -D prisma
+yarn add -D prisma
+
+
+# generate
+# openssl rand -base64 32
+
+
+npx prisma migrate dev --name init

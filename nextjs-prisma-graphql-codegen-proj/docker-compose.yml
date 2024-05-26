@@ -34,6 +34,8 @@ services:
       - mysql.env
     ports:
       - 3313:3306
+    volumes:
+      - ./init_db:/docker-entrypoint-initdb.d
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin-test_graphql_server-nextjs-prisma-graphql-codegen-proj
@@ -44,6 +46,11 @@ services:
       - 9097:80
     volumes:
       - ./docker/phpmyadmin/sessions:/sessions
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+      - 1025:1025
 # volumes:
 #   docker/db/data:
 #   docker/db/my.cnf:
