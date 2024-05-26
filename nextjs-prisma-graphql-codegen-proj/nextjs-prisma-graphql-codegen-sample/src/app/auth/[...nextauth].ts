@@ -1,8 +1,8 @@
-import { PrismaAdapter } from '@next-atuh/prisma-adapter'
-import NextAuth from 'next-atuh'
-import EmailProvider from 'next-atuh/providers/email'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import NextAuth from 'next-auth'
+import EmailProvider from 'next-auth/providers/email'
 
-import { prisma } from '@/libs/prisma'
+import prisma from '@/app/libs/prisma'
 
 const EMAIL_SERVER = process.env.EMAIL_SERVER
 const EMAIL_FROM = process.env.EMAIL_FROM

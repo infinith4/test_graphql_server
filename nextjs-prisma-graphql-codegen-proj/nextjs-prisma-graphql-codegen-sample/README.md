@@ -41,11 +41,9 @@ yarn dev
 
 yarn add -D @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-simple-import-sort prettier npm-run-all
 
-
 yarn format
 
 yarn lint
-
 
 https://tailwindcss.com/docs/guides/nextjs
 
@@ -53,14 +51,14 @@ yarn add -D tailwindcss postcss autoprefixer
 
 npx tailwindcss init -p
 
-
 # prisma
 
 yarn add -D prisma
 
-
 # generate
+
 # openssl rand -base64 32
 
-
 npx prisma migrate dev --name init
+
+npx prisma studio
