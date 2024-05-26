@@ -9,3 +9,18 @@ Ok to proceed? (y)
 ✔ Would you like to use `src/` directory? … Yes
 ✔ Would you like to use App Router? (recommended) … Yes
 ✔ Would you like to customize the default import alias (@/*)? … No
+
+
+- Article
+  - id string
+  - userId string
+  - titile string
+  - content string
+  - completed boolean
+  - createdAt DateTime
+  - updatedAt DateTime
+  - user
+
+
+
+yarn add next-auth @prisma/client @next-auth/prisma-adapter

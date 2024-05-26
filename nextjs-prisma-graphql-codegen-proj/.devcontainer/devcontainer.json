@@ -15,9 +15,9 @@
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
-  // "forwardPorts": [
-  //   3200
-  // ],
+  "forwardPorts": [
+    "3200:4200"
+  ],
   // "portsAttributes": {
   //   "3200": {
   //     "label": "Service A (Main)"
