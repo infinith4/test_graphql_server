@@ -21,7 +21,7 @@ services:
     command: sleep infinity
     #network_mode: 'host'
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    #network_mode: service:db
+    network_mode: service:db
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
     # (Adding the "ports" property to this file will not forward from a Codespace.)
@@ -51,6 +51,10 @@ services:
     ports:
       - 8025:8025
       - 1025:1025
+  # volumes:
+  #   mysql80vol-test_graphql_server-nextjs-prisma-graphql-codegen-proj:
+  #     name: mysql80data-test_graphql_server-nextjs-prisma-graphql-codegen-proj
+    
 # volumes:
 #   docker/db/data:
 #   docker/db/my.cnf:
