@@ -62,3 +62,9 @@ yarn add -D prisma
 npx prisma migrate dev --name init
 
 npx prisma studio
+
+## next-auth
+
+yarn add next-auth@beta
+
+yarn add zod
