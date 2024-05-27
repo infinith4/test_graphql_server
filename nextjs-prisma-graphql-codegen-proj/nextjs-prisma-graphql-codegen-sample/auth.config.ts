@@ -1,6 +1,20 @@
 import type { NextAuthConfig } from 'next-auth'
+import Credentials from 'next-auth/providers/credentials'
+import { resolve } from 'path'
 
-export const authConfig = {
+export const authConfig: NextAuthConfig = {
+  providers: [
+    Credentials({
+      async authorize(credentials) {
+        await new Promise((resolve) => setTimeout(resolve, 5000))
+
+        const email = 'user@nextemail.com'
+        return credentials.email === email && credentials.password === '123456'
+          ? { id: 'userId', email }
+          : null
+      },
+    }),
+  ],
   pages: {
     signIn: '/login',
   },
@@ -10,12 +24,11 @@ export const authConfig = {
       const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
       if (isOnDashboard) {
         if (isLoggedIn) return true
-        return false // Redirect unauthenticated users to login page
+        return false
       } else if (isLoggedIn) {
         return Response.redirect(new URL('/dashboard', nextUrl))
       }
       return true
     },
   },
-  providers: [], // Add providers with an empty array for now
-} satisfies NextAuthConfig
+}

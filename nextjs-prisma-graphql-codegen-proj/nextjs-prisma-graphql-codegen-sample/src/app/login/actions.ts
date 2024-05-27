@@ -4,6 +4,7 @@ import { signIn } from '@/auth'
 
 export async function authenticate(prevState: boolean, formData: FormData) {
   try {
+    console.log(formData)
     await signIn('credentials', Object.fromEntries(formData))
     return true
   } catch (error) {
