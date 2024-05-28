@@ -11,7 +11,7 @@ export default function Dashboard() {
       >
         <button>ログアウト</button>
       </form>
-      dashboard
+      hello dashboard
     </div>
   )
 }

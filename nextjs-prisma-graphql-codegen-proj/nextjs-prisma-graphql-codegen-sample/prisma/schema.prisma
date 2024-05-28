@@ -7,24 +7,25 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
+model users {
   id            String          @id @default(cuid())
   name          String?
   username      String?         @unique
   email         String?         @unique
+  password      String?
   emailVerified DateTime?
   image         String?
-  Session       Session[]
-  Account       Account?
+  session       session[]
+  account       account?
   // Optional for WebAuthn support
-  Authenticator Authenticator[]
+  authenticator authenticator[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Article   Article[]
+  article   article[]
 }
 
-model Account {
+model account {
   id                       String  @id @default(cuid())
   userId                   String  @unique
   type                     String
@@ -38,7 +39,7 @@ model Account {
   id_token                 String? @db.Text
   session_state            String?
   refresh_token_expires_in Int?
-  user                     User?   @relation(fields: [userId], references: [id])
+  users                    users?  @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,12 +48,12 @@ model Account {
   @@index([userId])
 }
 
-model Session {
+model session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id])
+  users        users    @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -60,7 +61,7 @@ model Session {
   @@index([userId])
 }
 
-model VerificationToken {
+model verificationToken {
   identifier String
   token      String
   expires    DateTime
@@ -69,7 +70,7 @@ model VerificationToken {
 }
 
 // Optional for WebAuthn support
-model Authenticator {
+model authenticator {
   credentialID         String  @unique
   userId               String
   providerAccountId    String
@@ -79,17 +80,17 @@ model Authenticator {
   credentialBackedUp   Boolean
   transports           String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  users users @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
 }
 
-model Article {
+model article {
   id        String   @id @default(cuid())
   userId    String
   title     String
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  users     users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
