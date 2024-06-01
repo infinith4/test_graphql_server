@@ -70,3 +70,5 @@ yarn add next-auth@beta
 yarn add zod
 
 yarn add graphql @graphql-tools/graphql-file-loader @graphql-tools/load @graphql-tools/schema micro micro-cors @apollo/server
+
+yarn add @graphql-codegen/cli
