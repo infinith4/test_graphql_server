@@ -43,25 +43,58 @@
 
 import { ApolloServer } from '@apollo/server'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
+// const resolvers = {
+//   Query: {
+//     hello: () => 'world',
+//   },
+// }
+// const typeDefs = gql`
+//   type Query {
+//     hello: String
+//   }
+// `
+import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
+import { loadSchemaSync } from '@graphql-tools/load'
+import { addResolversToSchema } from '@graphql-tools/schema'
 import { PrismaClient } from '@prisma/client'
 import { readFileSync } from 'fs'
+import { gql } from 'graphql-tag'
 import path from 'path'
 
-const prisma = new PrismaClient()
-const resolvers = {
-  Query: {
-    products: () => prisma.article.findMany(),
-  },
-  Mutation: {
-    createProduct: async (_: any, args: any) =>
-      prisma.article.create({ data: args.input }),
-  },
-}
-const schemaPath = path.join(process.cwd(), 'src/graphql/schema.gql')
+import { createContext } from '@/graphql/context'
+import { resolvers } from '@/graphql/resolvers'
+
+// const prisma = new PrismaClient()
+// const resolvers = {
+//   Query: {
+//     products: () => prisma.article.findMany(),
+//   },
+//   Mutation: {
+//     createProduct: async (_: any, args: any) =>
+//       prisma.article.create({ data: args.input }),
+//   },
+// }
+
+const schemaPath = path.join(process.cwd(), 'src/generated/schema.graphql')
 const typeDefs = readFileSync(schemaPath, { encoding: 'utf-8' })
+// const server = new ApolloServer({
+//   resolvers,
+//   typeDefs,
+// })
+
+// export default startServerAndCreateNextHandler(server)
+
+// const schema = loadSchemaSync('src/generated/schema.graphql', {
+//   loaders: [new GraphQLFileLoader()],
+// })
+
+// const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
+
 const server = new ApolloServer({
   resolvers,
   typeDefs,
 })
 
-export default startServerAndCreateNextHandler(server)
+const handler = startServerAndCreateNextHandler(server)
+
+export { handler as GET, handler as POST }
