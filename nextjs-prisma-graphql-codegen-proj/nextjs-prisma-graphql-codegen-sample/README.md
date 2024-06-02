@@ -76,3 +76,4 @@ yarn add @graphql-codegen/cli
 yarn add @graphql-codegen/typescript-resolvers
 
 yarn add apollo-server
+yarn add @as-integrations/next
