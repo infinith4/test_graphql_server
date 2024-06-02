@@ -1,7 +1,7 @@
+import { ApolloServer } from '@apollo/server'
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchemaSync } from '@graphql-tools/load'
 import { addResolversToSchema } from '@graphql-tools/schema'
-import { ApolloServer } from 'apollo-server'
 import Cors from 'micro-cors'
 import { start } from 'repl'
 
@@ -17,8 +17,7 @@ const schema = loadSchemaSync('src/generated/schema.graphql', {
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
 
 const apolloServer = new ApolloServer({
-  schema: schemaWithResolvers,
-  context: createContext,
+  schema: schemaWithResolvers
 })
 
 const startServer = apolloServer.start()
@@ -30,7 +29,7 @@ export default cors(async function handlers(req, res) {
   }
 
   await startServer
-  await apolloServer.createHandler({ path: '/api/graphql' })(req, res)
+  await apolloServer.({ path: '/api/graphql' })(req, res)
 })
 
 export const config = {
@@ -38,3 +37,6 @@ export const config = {
     bodyParser: false,
   },
 }
+
+export default startServerAndCreateNextHandler(server);
+//https://zenn.dev/metallic_kfc/articles/59f3875c950056
