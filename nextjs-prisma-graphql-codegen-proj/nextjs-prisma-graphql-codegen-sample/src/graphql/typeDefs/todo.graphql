@@ -1,0 +1,36 @@
+type Article {
+  id: ID
+  userId: String!
+  title: String!
+  content: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User
+}
+
+type Query {
+  articles: [Article!]!
+}
+
+type Mutation {
+  addArticle(title: String!): Article!
+  updateArticle(articleId: String!, title: String, content: String): Article!
+  deleteArticle(articleId: String): Article!
+}
+
+fragment ArticleFragment on Article {
+  id
+  title
+  content
+  createdAt
+  updatedAt
+  user {
+    UserFragment
+  }
+}
+
+query Articles {
+  articles {
+    ArticleFragment
+  }
+}
