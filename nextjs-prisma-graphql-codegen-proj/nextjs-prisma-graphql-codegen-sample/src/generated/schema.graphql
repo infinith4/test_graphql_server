@@ -1,0 +1,27 @@
+type Article {
+  content: String!
+  createdAt: DateTime!
+  id: ID
+  title: String!
+  updatedAt: DateTime!
+  user: User
+  userId: String!
+}
+
+scalar DateTime
+
+type Mutation {
+  addArticle(title: String!): Article!
+  deleteArticle(articleId: String): Article!
+  updateArticle(articleId: String!, content: String, title: String): Article!
+}
+
+type Query {
+  articles: [Article!]!
+}
+
+type User {
+  email: String
+  id: ID
+  name: String
+}

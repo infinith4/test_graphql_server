@@ -12,3 +12,9 @@ generates:
       - typescript-resolvers
     config:
       contextType: 'src/graphql/context#Context'
+      mapperTypSuffix: Model
+      mappers:
+        User: '@prisma/client#User'
+        Article: '@prisma/client#Article'
+      scalers:
+        DateTime: string
