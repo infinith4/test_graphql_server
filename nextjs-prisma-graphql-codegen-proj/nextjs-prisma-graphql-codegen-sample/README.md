@@ -74,3 +74,5 @@ yarn add graphql @graphql-tools/graphql-file-loader @graphql-tools/load @graphql
 yarn add @graphql-codegen/cli
 
 yarn add @graphql-codegen/typescript-resolvers
+
+yarn add apollo-server

@@ -53,11 +53,7 @@ export const resolvers: Resolvers = {
 
       return article
     },
-    deleterticle: async (
-      _,
-      { articleId, title, content },
-      { prisma, currentUser },
-    ) => {
+    deleteArticle: async (_, { articleId }, { prisma, currentUser }) => {
       if (!currentUser) {
         throw new Error('User not Logged in.')
       }
@@ -69,11 +65,8 @@ export const resolvers: Resolvers = {
         throw new Error('Invalid user.')
       }
 
-      const article = await prisma.article.update({
+      const article = await prisma.article.delete({
         where: { id: articleId },
-        data: {
-          ...(title && { title }),
-        },
         include: { user: true },
       })
 
