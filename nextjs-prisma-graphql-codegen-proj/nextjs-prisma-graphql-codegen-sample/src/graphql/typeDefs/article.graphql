@@ -15,7 +15,7 @@ type Query {
 type Mutation {
   addArticle(title: String!): Article!
   updateArticle(articleId: String!, title: String, content: String): Article!
-  deleteArticle(articleId: String): Article!
+  deleteArticle(articleId: String!): Article!
 }
 
 fragment ArticleFragment on Article {
@@ -25,12 +25,30 @@ fragment ArticleFragment on Article {
   createdAt
   updatedAt
   user {
-    UserFragment
+    ...UserFragment
   }
 }
 
 query Articles {
   articles {
-    ArticleFragment
+    ...ArticleFragment
+  }
+}
+
+mutation AddArticle($title: String!) {
+  addArticle(title: $title) {
+    ...ArticleFragment
+  }
+}
+
+mutation UpdateArticle($articleId: String, $title: String!, $content: String) {
+  updateArticle(articleId: $articleId, title: $title, content: $content) {
+    ...ArticleFragment
+  }
+}
+
+mutation DeleteArticle($articleId: String) {
+  addArticle(articleId: $articleId) {
+    ...ArticleFragment
   }
 }

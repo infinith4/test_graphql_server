@@ -1,8 +1,10 @@
 import type { Resolvers } from '@/generated/resolvers-types'
+// import { prisma } from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
   Query: {
     articles: async (_, __, { prisma, currentUser }) => {
+      console.log(prisma)
       if (!currentUser) {
         throw new Error('User not logged in.')
       }
