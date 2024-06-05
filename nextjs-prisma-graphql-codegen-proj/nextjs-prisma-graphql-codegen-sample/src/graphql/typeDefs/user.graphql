@@ -3,3 +3,9 @@ type User {
   name: String
   email: String
 }
+
+fragment UserFragment on User {
+  id
+  name
+  email
+}

@@ -12,7 +12,7 @@ scalar DateTime
 
 type Mutation {
   addArticle(title: String!): Article!
-  deleteArticle(articleId: String): Article!
+  deleteArticle(articleId: String!): Article!
   updateArticle(articleId: String!, content: String, title: String): Article!
 }
 

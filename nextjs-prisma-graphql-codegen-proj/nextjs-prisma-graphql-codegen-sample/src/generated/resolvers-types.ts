@@ -44,7 +44,7 @@ export type MutationAddArticleArgs = {
 
 
 export type MutationDeleteArticleArgs = {
-  articleId?: InputMaybe<Scalars['String']['input']>;
+  articleId: Scalars['String']['input'];
 };
 
 
@@ -176,7 +176,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addArticle?: Resolver<ResolversTypes['Article'], ParentType, ContextType, RequireFields<MutationAddArticleArgs, 'title'>>;
-  deleteArticle?: Resolver<ResolversTypes['Article'], ParentType, ContextType, Partial<MutationDeleteArticleArgs>>;
+  deleteArticle?: Resolver<ResolversTypes['Article'], ParentType, ContextType, RequireFields<MutationDeleteArticleArgs, 'articleId'>>;
   updateArticle?: Resolver<ResolversTypes['Article'], ParentType, ContextType, RequireFields<MutationUpdateArticleArgs, 'articleId'>>;
 };
 
