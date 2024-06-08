@@ -35,6 +35,8 @@ export const authConfig: NextAuthConfig = {
         console.log(rows)
         if (Array.isArray(rows) && rows.length === 1) {
           const user = rows[0]
+          console.log('user')
+          console.log(user)
 
           // パスワードの検証（例：bcryptを使用）
           const isValid = credentials.password === user.password // 仮の検証方法。適切にハッシュ化されたパスワードを使用すること。

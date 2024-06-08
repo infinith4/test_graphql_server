@@ -22,7 +22,7 @@ export const ArticleList: FC = () => {
   }, [data?.articles])
 
   if (loading) return <div>loading...</div>
-  if (error) return <div>error!</div>
+  if (error) return <div>error! {error.message}</div>
   if (!data?.articles) return null
 
   return <div className="p-5 border rounded">article List</div>

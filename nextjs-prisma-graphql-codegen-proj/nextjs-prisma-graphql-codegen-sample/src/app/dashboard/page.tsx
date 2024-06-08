@@ -1,5 +1,7 @@
 import { signOut } from '@/auth'
 
+import { ArticleList } from '../components/ArticleList'
+
 export default function Dashboard() {
   return (
     <div>
@@ -12,6 +14,7 @@ export default function Dashboard() {
         <button>ログアウト</button>
       </form>
       hello dashboard
+      <ArticleList />
     </div>
   )
 }
