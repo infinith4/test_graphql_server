@@ -80,5 +80,6 @@ yarn add @as-integrations/next
 
 yarn add @graphql-codegen/typescript-operations @graphql-codegen/typescript-react-apollo
 
-
 yarn add @apollo/client
+
+curl -v http://localhost:4200/my-api-auth
