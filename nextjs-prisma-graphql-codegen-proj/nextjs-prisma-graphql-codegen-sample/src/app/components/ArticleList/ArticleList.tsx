@@ -1,6 +1,6 @@
 'use client'
 import type { FC, FormEventHandler } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import type { ArticlesQuery } from '@/generated/request'
 import {
