@@ -6,11 +6,12 @@ import prisma from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
   Query: {
-    articles: async (_, __, { currentUser }) => {
-      console.log(_)
-      console.log(__)
+    articles: async (parent, args, contextValue, info) => {
       //console.log(prisma)
-      console.log(currentUser)
+      console.log(parent)
+      console.log(args)
+      console.log(contextValue)
+      console.log(info)
       // if (!currentUser) {
       //   throw new Error('User not logged in.')
       // }
