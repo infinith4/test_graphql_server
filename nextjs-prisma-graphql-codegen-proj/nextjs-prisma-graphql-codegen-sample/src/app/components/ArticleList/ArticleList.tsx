@@ -18,9 +18,9 @@ export const ArticleList: FC = () => {
   const [updateArticleMutation] = useUpdateArticleMutation()
   const [deleteArticleMutation] = useDeleteArticleMutation()
 
-  // useEffect((): void => {
-  //   setArticles(data?.articles ?? [])
-  // }, [data?.articles])
+  useEffect((): void => {
+    setArticles(data?.articles ?? [])
+  }, [data?.articles])
 
   if (loading) return <div>loading...</div>
   if (error) return <div>error! {error.message}</div>
