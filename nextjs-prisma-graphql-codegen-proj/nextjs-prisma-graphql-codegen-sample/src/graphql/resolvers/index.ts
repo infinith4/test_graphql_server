@@ -2,14 +2,14 @@ import type { Resolvers } from '@/generated/resolvers-types'
 // import { prisma } from '@/libs/prisma'
 import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
+import prisma from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
   Query: {
     articles: async (_, __, { currentUser }) => {
       console.log(_)
       console.log(__)
-      console.log(prisma)
+      //console.log(prisma)
       console.log(currentUser)
       // if (!currentUser) {
       //   throw new Error('User not logged in.')
