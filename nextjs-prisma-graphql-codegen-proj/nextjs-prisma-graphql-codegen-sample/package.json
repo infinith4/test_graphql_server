@@ -60,6 +60,9 @@
     "typescript": "^5"
   },
   "resolutions": {
-    "jackspeak": "3.1.2"
+    "jackspeak": "3.1.2",
+    "lerna/**/string-width": "4",
+		"lerna/**/strip-ansi": "6",
+		"lerna/**/wrap-ansi": "7"
   }
 }
