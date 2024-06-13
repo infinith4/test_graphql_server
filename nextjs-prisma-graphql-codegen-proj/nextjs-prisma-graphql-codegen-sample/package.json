@@ -13,7 +13,8 @@
     "format:eslint": "yarn lint:eslint --fix",
     "format:prettier": "yarn lint:prettier --write",
     "typecheck": "tsc",
-    "codegen": "graphql-codegen"
+    "codegen": "graphql-codegen",
+    "codegents": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
@@ -41,6 +42,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@graphql-codegen/client-preset": "^4.2.6",
     "@types/micro-cors": "^0.1.5",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -62,7 +64,7 @@
   "resolutions": {
     "jackspeak": "3.1.2",
     "lerna/**/string-width": "4",
-		"lerna/**/strip-ansi": "6",
-		"lerna/**/wrap-ansi": "7"
+    "lerna/**/strip-ansi": "6",
+    "lerna/**/wrap-ansi": "7"
   }
 }

@@ -83,3 +83,6 @@ yarn add @graphql-codegen/typescript-operations @graphql-codegen/typescript-reac
 yarn add @apollo/client
 
 curl -v http://localhost:4200/my-api-auth
+
+
+yarn add -D @graphql-codegen/client-preset

@@ -15,7 +15,9 @@ export const ArticleList: FC = () => {
   const [articles, setArticles] = useState<ArticlesQuery['articles']>([])
   console.log("-----------------------------articles");
   console.log(articles);
-  //const { loading, error, data } = useArticlesQuery()
+  const { loading, error, data } = useArticlesQuery()
+  console.log("-----------------------------data");
+  console.log(data);
   // const [addArticleMutation] = useAddArticleMutation()
   // const [updateArticleMutation] = useUpdateArticleMutation()
   // const [deleteArticleMutation] = useDeleteArticleMutation()

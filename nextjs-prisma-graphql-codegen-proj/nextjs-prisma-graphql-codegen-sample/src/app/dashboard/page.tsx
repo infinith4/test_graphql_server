@@ -23,7 +23,7 @@
 // }
 
 'use client';
-import { ArticleList } from '../components/ArticleList'
+import GQLArticleList from '../components/GQLArticleList'
 import { useSession } from 'next-auth/react';
 import Login from '../components/Login';
 import Logout from '../components/Logout';
@@ -42,7 +42,7 @@ export default function Home() {
       style={{ borderRadius: '50px' }}
     />
     <div>
-      <ArticleList />
+      <GQLArticleList />
       <Logout />
     </div>
   </div>
