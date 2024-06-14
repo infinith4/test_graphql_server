@@ -1,4 +1,4 @@
-query artiles{
+query articles{
   articles {
     content
     createdAt

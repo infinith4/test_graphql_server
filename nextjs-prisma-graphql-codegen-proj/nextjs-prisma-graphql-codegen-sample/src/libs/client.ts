@@ -1,7 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 
-export const { getClient } = registerApolloClient(() => {
+export const getClient = () => {
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
@@ -9,4 +8,4 @@ export const { getClient } = registerApolloClient(() => {
       fetchOptions: { cache: "no-store" }, // 一旦、キャッシュしない設定で逃げる
     }),
   });
-});
+};

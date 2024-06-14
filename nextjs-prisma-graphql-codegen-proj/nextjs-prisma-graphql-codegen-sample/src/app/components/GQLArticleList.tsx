@@ -1,20 +1,21 @@
 import {  gql, useQuery } from "@apollo/client";
 
 import Article from "./Article";
-import { ArticlesDocument } from "@/gql/graphql";
 
-import { ArtilesQuery, ArtilesDocument } from "@/graphql/dist/client";
+import { ArticlesQuery, ArticlesDocument } from "@/graphql/dist/client";
 import { getClient } from "@/libs/client";
 
 export default async function GQLArticleList() {
   // クエリ
-  const { data: queryData } = await getClient().query<ArtilesQuery>({
-    query: ArtilesDocument,
+  const {data: queryData, loading} = await getClient().query<ArticlesQuery>({
+    query: ArticlesDocument,
   });
-
+  console.log("queryData----------------------------------------")
+  console.log(queryData)
   const articles = [...queryData.articles];
   return (
     <main>
+      <div>list of articles</div>
       {articles
         .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
         .map((article) => (
