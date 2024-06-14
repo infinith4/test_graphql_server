@@ -1,22 +1,27 @@
-import { useQuery } from "@apollo/client";
+import {  gql, useQuery } from "@apollo/client";
 
 import Article from "./Article";
 import { ArticlesDocument } from "@/gql/graphql";
 
-function GQLArticleList() {
-  // `data` is typed!
-  const { data } = useQuery(ArticlesDocument);
+import { ArtilesQuery, ArtilesDocument } from "@/graphql/dist/client";
+import { getClient } from "@/libs/client";
+
+export default async function GQLArticleList() {
+  // クエリ
+  const { data: queryData } = await getClient().query<ArtilesQuery>({
+    query: ArtilesDocument,
+  });
+
+  const articles = [...queryData.articles];
   return (
-    <div className="App">
-      {data && (
-        <ul>
-          {data.articles?.map(
-            (e, i) => e && <Article article={e} key={`article-${i}`} />
-          )}
-        </ul>
-      )}
-    </div>
+    <main>
+      {articles
+        .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+        .map((article) => (
+          <div key={article.id}>
+            <h1>{article.content}</h1>
+          </div>
+        ))}
+    </main>
   );
 }
-
-export default GQLArticleList;

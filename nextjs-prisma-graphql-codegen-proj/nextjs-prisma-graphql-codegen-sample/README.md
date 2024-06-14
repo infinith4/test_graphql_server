@@ -86,3 +86,5 @@ curl -v http://localhost:4200/my-api-auth
 
 
 yarn add -D @graphql-codegen/client-preset
+
+yarn add -D @graphql-codegen/typescript-graphql-request
