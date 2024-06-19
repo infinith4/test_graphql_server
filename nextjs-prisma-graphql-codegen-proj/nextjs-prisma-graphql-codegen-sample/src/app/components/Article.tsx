@@ -6,7 +6,7 @@ const Article = (props: {
   /* `film` property has the correct type 🎉 */
   article: FragmentType<typeof ArticleFragmentFragmentDoc>;
 }) => {
-  const data = useFragment(ArticleFragmentFragmentDoc, props.film);
+  const data = useFragment(ArticleFragmentFragmentDoc, props.article);
 
     return (
       <div>
