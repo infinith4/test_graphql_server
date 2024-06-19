@@ -1,3 +1,4 @@
+overwrite: true
 schema: ./src/generated/schema.graphql
 documents: ./src/graphql/query/*.graphql
 generates:
@@ -6,6 +7,29 @@ generates:
       - typescript
       - typescript-operations
       - typescript-graphql-request
+
+  ./src/graphql/dist/resolvers-types.ts:
+    schema:
+      - 'src/graphql/typeDefs/**/*.graphql'
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      contextType: 'src/graphql/context#Context'
+      mapperTypSuffix: Model
+      mappers:
+        User: '@prisma/client#User'
+        Article: '@prisma/client#Article'
+      scalers:
+        DateTime: string
+    # config:
+    #   contextType: './src/graphql/context#Context'
+    #   mapperTypSuffix: Model
+    #   mappers:
+    #     User: '@prisma/client#User'
+    #     Article: '@prisma/client#Article'
+    #   scalers:
+    #     DateTime: string
 # generates:
 #   src/generated/schema.graphql:
 #     schema:
