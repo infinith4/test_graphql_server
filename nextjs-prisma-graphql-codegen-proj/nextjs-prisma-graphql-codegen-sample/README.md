@@ -61,6 +61,8 @@ yarn add -D prisma
 
 npx prisma migrate dev --name init
 
+npx prisma db seed
+
 npx prisma studio
 
 ## next-auth
@@ -82,8 +84,7 @@ yarn add @graphql-codegen/typescript-operations @graphql-codegen/typescript-reac
 
 yarn add @apollo/client
 
-curl -v http://localhost:4200/my-api-auth
-
+curl -v http://localhost:4210/my-api-auth
 
 yarn add -D @graphql-codegen/client-preset
 

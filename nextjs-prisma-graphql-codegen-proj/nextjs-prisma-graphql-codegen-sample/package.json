@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4200",
+    "dev": "next dev -p 4210",
     "build": "next build",
     "start": "next start",
     "lint": "run-p -l -c --aggregate-output lint:*",
@@ -13,7 +13,8 @@
     "format:eslint": "yarn lint:eslint --fix",
     "format:prettier": "yarn lint:prettier --write",
     "typecheck": "tsc",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "codegents": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
@@ -67,5 +68,8 @@
     "lerna/**/string-width": "4",
     "lerna/**/strip-ansi": "6",
     "lerna/**/wrap-ansi": "7"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }

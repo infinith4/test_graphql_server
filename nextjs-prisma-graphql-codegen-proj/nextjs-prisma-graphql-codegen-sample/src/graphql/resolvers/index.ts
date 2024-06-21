@@ -1,20 +1,23 @@
 import type { Resolvers } from '@/generated/resolvers-types'
+//import type { Resolvers } from '@/graphql/dist/resolvers-types'
 // import { prisma } from '@/libs/prisma'
-import { PrismaClient } from '@prisma/client'
+// import { PrismaClient } from '@prisma/client'
 
-import prisma from '@/libs/prisma'
-
+// import { Context } from '@apollo/client'
+//import prisma from '@/libs/prisma'
 export const resolvers: Resolvers = {
   Query: {
     articles: async (parent, args, contextValue, info) => {
       //console.log(prisma)
-      console.log("----------------------parent")
+      console.log('----------------------parent')
       console.log(parent)
-      console.log("----------------------args")
+      console.log('----------------------args')
       console.log(args)
-      console.log("----------------------contextValue")
+      console.log('----------------------prisma')
       console.log(contextValue)
-      console.log("----------------------info")
+      console.log('----------------------currentUser')
+      console.log(contextValue)
+      console.log('----------------------info')
       console.log(info)
       // if (!currentUser) {
       //   throw new Error('User not logged in.')
@@ -22,9 +25,9 @@ export const resolvers: Resolvers = {
       const articles = await prisma.article.findMany({
         orderBy: { createdAt: 'desc' },
         include: { users: true },
-        where: { userId: "test1" },
+        where: { userId: 'clxmdkez50000w3ntfjh56u6y' },
       })
-      console.log("----------------------articles")
+      console.log('----------------------articles')
       console.log(articles[0])
 
       return articles

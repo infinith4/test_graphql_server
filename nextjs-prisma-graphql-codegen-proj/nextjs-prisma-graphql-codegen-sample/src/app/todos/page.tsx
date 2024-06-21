@@ -1,9 +1,11 @@
 // app/todos/page.tsx
 
 import { use } from 'react'
+
 import GQLArticleList from '../components/GQLArticleList'
+
 async function getData() {
-  const res = await fetch('http://localhost:4200/api/todos')
+  const res = await fetch('http://localhost:4210/api/todos')
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
   return res.json()

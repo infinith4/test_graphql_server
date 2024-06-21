@@ -1,11 +1,11 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 
 export const getClient = () => {
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: "http://localhost:4200/api/graphql", // 各自の環境で書き換えてください
-      fetchOptions: { cache: "no-store" }, // 一旦、キャッシュしない設定で逃げる
+      uri: 'http://localhost:4210/api/graphql', // 各自の環境で書き換えてください
+      fetchOptions: { cache: 'no-store' }, // 一旦、キャッシュしない設定で逃げる
     }),
-  });
-};
+  })
+}
