@@ -57,9 +57,15 @@ yarn add -D prisma
 
 # generate
 
+npx prisma generate
+
 # openssl rand -base64 32
 
 npx prisma migrate dev --name init
+
+## seed
+
+package.json
 
 npx prisma db seed
 
