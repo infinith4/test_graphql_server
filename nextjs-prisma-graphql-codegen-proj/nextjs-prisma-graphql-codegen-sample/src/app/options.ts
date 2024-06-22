@@ -3,6 +3,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 
+import prisma from '@/libs/prisma'
+
 export const options: NextAuthOptions = {
   debug: true,
   session: { strategy: 'jwt' },
@@ -27,13 +29,15 @@ export const options: NextAuthOptions = {
       },
       // メルアド認証処理
       async authorize(credentials) {
+        console.log('--------credentials: ', { credentials })
         const users = [
           { id: '1', email: 'user1@example.com', password: 'password1' },
           { id: '2', email: 'user2@example.com', password: 'password2' },
           { id: '3', email: 'abc@abc', password: '123' },
         ]
-
+        //await prisma.
         const user = users.find((user) => user.email === credentials?.email)
+        console.log('--------user: ', { user })
 
         if (user && user?.password === credentials?.password) {
           return {
@@ -63,7 +67,12 @@ export const options: NextAuthOptions = {
       isNewUser: any
     }) => {
       // 注意: トークンをログ出力してはダメです。
-      console.log('in jwt', { user, token, account, profile })
+      console.log('file: src/app/options.ts in jwt', {
+        user,
+        token,
+        account,
+        profile,
+      })
 
       if (user) {
         token.user = user
@@ -76,7 +85,8 @@ export const options: NextAuthOptions = {
       return token
     },
     session: ({ session, token }: { session: any; token: any }) => {
-      console.log('in session', { session, token })
+      console.log('file: src/app/options.ts in session', { session })
+      console.log('file: src/app/options.ts in token', { token })
       token.accessToken
       return {
         ...session,
