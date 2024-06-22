@@ -3,9 +3,9 @@ import type { Resolvers } from '@/graphql/dist/graphql_codegen'
 //import type { Resolvers } from '@/graphql/dist/resolvers-types'
 // import { prisma } from '@/libs/prisma'
 // import { PrismaClient } from '@prisma/client'
-
 // import { Context } from '@apollo/client'
 import prisma from '@/libs/prisma'
+
 export const resolvers: Resolvers = {
   Query: {
     articles: async (parent, args, contextValue, info) => {
@@ -23,10 +23,10 @@ export const resolvers: Resolvers = {
       // if (!currentUser) {
       //   throw new Error('User not logged in.')
       // }
-      const articles = await prisma.article.findMany({
+      const articles = await prisma.articles.findMany({
         orderBy: { createdAt: 'desc' },
         include: { users: true },
-        where: { userId: 'clxmdkez50000w3ntfjh56u6y' },
+        where: { userId: 'clxpfor7l0000xi6x8n9co9pc' },
       })
       console.log('----------------------articles')
       console.log(articles[0])
