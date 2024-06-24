@@ -108,7 +108,12 @@ import type { NextAuthConfig } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { resolve } from 'path'
 
+//prisma でDB接続 https://authjs.dev/getting-started/adapters/prisma
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { PrismaClient } from "@prisma/client"
+
 export const authConfig: NextAuthConfig = {
+  adapter: PrismaAdapter(prisma),  //prisma でDB接続
   providers: [
     Credentials({
       async authorize(credentials) {
