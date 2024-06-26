@@ -104,42 +104,74 @@
 //   },
 // }
 
+// //prisma でDB接続 https://authjs.dev/getting-started/adapters/prisma
+// import { PrismaAdapter } from '@auth/prisma-adapter'
+// import type { NextAuthConfig } from 'next-auth'
+// import Credentials from 'next-auth/providers/credentials'
+// import { resolve } from 'path'
+
+// import prisma from '@/libs/prisma'
+
+// export const authConfig: NextAuthConfig = {
+//   adapter: PrismaAdapter(prisma), //prisma でDB接続
+//   providers: [
+//     Credentials({
+//       async authorize(credentials) {
+//         await new Promise((resolve) => setTimeout(resolve, 5000))
+
+//         const email = 'user@nextemail.com'
+//         return credentials.email === email && credentials.password === '123456'
+//           ? { id: 'userId', email }
+//           : null
+//       },
+//     }),
+//   ],
+//   pages: {
+//     signIn: '/login',
+//   },
+//   callbacks: {
+//     authorized({ auth, request: { nextUrl } }) {
+//       const isLoggedIn = !!auth?.user
+//       const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
+//       if (isOnDashboard) {
+//         if (isLoggedIn) return true
+//         return false
+//       } else if (isLoggedIn) {
+//         return Response.redirect(new URL('/dashboard', nextUrl))
+//       }
+//       return true
+//     },
+//   },
+// }
+
 import type { NextAuthConfig } from 'next-auth'
-import Credentials from 'next-auth/providers/credentials'
-import { resolve } from 'path'
 
-//prisma でDB接続 https://authjs.dev/getting-started/adapters/prisma
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
+import { authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from '@/routes'
 
-export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma),  //prisma でDB接続
-  providers: [
-    Credentials({
-      async authorize(credentials) {
-        await new Promise((resolve) => setTimeout(resolve, 5000))
-
-        const email = 'user@nextemail.com'
-        return credentials.email === email && credentials.password === '123456'
-          ? { id: 'userId', email }
-          : null
-      },
-    }),
-  ],
+export const authConfig = {
   pages: {
     signIn: '/login',
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
-      if (isOnDashboard) {
-        if (isLoggedIn) return true
-        return false
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/dashboard', nextUrl))
+      const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+      const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
+
+      if (isAuthRoute) {
+        if (isLoggedIn) {
+          return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+        }
+
+        return true
       }
+
+      if (!isPublicRoute && !isLoggedIn) {
+        return false
+      }
+
       return true
     },
   },
-}
+  providers: [],
+} satisfies NextAuthConfig
