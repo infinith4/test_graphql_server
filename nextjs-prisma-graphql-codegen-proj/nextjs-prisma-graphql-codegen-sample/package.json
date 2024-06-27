@@ -31,6 +31,7 @@
     "@types/bcrypt": "^5.0.2",
     "@vercel/postgres": "^0.8.0",
     "apollo-server": "^3.13.0",
+    "bcrypt": "^5.1.1",
     "graphql": "^16.8.1",
     "micro": "^10.0.1",
     "micro-cors": "^0.1.1",
