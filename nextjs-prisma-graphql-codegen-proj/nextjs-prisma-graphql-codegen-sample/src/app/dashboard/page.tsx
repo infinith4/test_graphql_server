@@ -26,8 +26,6 @@ export default function Dashboard() {
         <button>ログアウト</button>
       </form>
       dashboard
-<!--       <GQLArticleList />
-      <Logout /> -->
     </div>
   )
 }
