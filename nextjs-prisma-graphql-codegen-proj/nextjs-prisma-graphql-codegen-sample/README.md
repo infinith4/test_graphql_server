@@ -82,6 +82,18 @@ yarn add @graphql-codegen/typescript-operations @graphql-codegen/typescript-reac
 
 yarn add @apollo/client
 
+curl -v http://localhost:4210/my-api-auth
+
+# login
+
+https://zenn.dev/terass_dev/articles/d45415a31694ea
+
+yarn add next-auth@beta
+
+https://zenn.dev/takubii/articles/ad93ca8966a213
+
+yarn add @types/bcrypt --save-dev
+
 curl -v http://localhost:4200/my-api-auth
 
 
