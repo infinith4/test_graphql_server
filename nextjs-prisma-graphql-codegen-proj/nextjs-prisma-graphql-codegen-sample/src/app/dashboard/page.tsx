@@ -5,6 +5,16 @@
 import { signOut } from '@/auth'
 
 export default function Dashboard() {
+
+// 'use client';
+// import GQLArticleList from '../components/GQLArticleList'
+// import { useSession } from 'next-auth/react';
+// import Login from '../components/Login';
+// import Logout from '../components/Logout';
+
+// export default function Home() {
+//   const { data: session, status } = useSession();
+
   return (
     <div>
       <form
@@ -16,6 +26,8 @@ export default function Dashboard() {
         <button>ログアウト</button>
       </form>
       dashboard
+<!--       <GQLArticleList />
+      <Logout /> -->
     </div>
   )
 }

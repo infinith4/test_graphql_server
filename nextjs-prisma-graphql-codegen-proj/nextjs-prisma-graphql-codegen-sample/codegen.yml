@@ -1,10 +1,14 @@
+overwrite: true
+schema: ./src/generated/schema.graphql
+documents: ./src/graphql/query/*.graphql
 generates:
-  src/generated/schema.graphql:
-    schema:
-      - 'src/graphql/typeDefs/**/*.graphql'
+  ./src/graphql/dist/client.ts:
     plugins:
-      - schema-ast
-  src/generated/resolvers-types.ts:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+
+  ./src/graphql/dist/resolvers-types.ts:
     schema:
       - 'src/graphql/typeDefs/**/*.graphql'
     plugins:
@@ -18,15 +22,43 @@ generates:
         Article: '@prisma/client#Article'
       scalers:
         DateTime: string
-  src/generated/request.ts:
-    schema:
-      - 'src/graphql/typeDefs/**/*.graphql'
-    documents:
-      - 'src/graphql/typeDefs/**/*.graphql'
-    plugins:
-      - typescript
-      - typescript-operations
-      - typescript-react-apollo
-    config:
-      scalars:
-        DateTime: string
+    # config:
+    #   contextType: './src/graphql/context#Context'
+    #   mapperTypSuffix: Model
+    #   mappers:
+    #     User: '@prisma/client#User'
+    #     Article: '@prisma/client#Article'
+    #   scalers:
+    #     DateTime: string
+# generates:
+#   src/generated/schema.graphql:
+#     schema:
+#       - 'src/graphql/typeDefs/**/*.graphql'
+#     plugins:
+#       - schema-ast
+#   src/generated/resolvers-types.ts:
+#     schema:
+#       - 'src/graphql/typeDefs/**/*.graphql'
+#     plugins:
+#       - typescript
+#       - typescript-resolvers
+#     config:
+#       contextType: 'src/graphql/context#Context'
+#       mapperTypSuffix: Model
+#       mappers:
+#         User: '@prisma/client#User'
+#         Article: '@prisma/client#Article'
+#       scalers:
+#         DateTime: string
+#   src/generated/request.ts:
+#     schema:
+#       - 'src/graphql/typeDefs/**/*.graphql'
+#     documents:
+#       - 'src/graphql/typeDefs/**/*.graphql'
+#     plugins:
+#       - typescript
+#       - typescript-operations
+#       - typescript-react-apollo
+#     config:
+#       scalars:
+#         DateTime: string

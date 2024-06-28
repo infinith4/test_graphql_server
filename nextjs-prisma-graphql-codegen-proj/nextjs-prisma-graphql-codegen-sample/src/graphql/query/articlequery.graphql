@@ -1,0 +1,9 @@
+query articles{
+  articles {
+    content
+    createdAt
+    id
+    title
+    updatedAt
+  }
+}

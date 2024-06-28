@@ -93,3 +93,10 @@ yarn add next-auth@beta
 https://zenn.dev/takubii/articles/ad93ca8966a213
 
 yarn add @types/bcrypt --save-dev
+
+curl -v http://localhost:4200/my-api-auth
+
+
+yarn add -D @graphql-codegen/client-preset
+
+yarn add -D @graphql-codegen/typescript-graphql-request

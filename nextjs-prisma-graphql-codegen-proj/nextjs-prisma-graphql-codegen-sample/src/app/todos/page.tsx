@@ -1,7 +1,7 @@
 // app/todos/page.tsx
 
 import { use } from 'react'
-
+import GQLArticleList from '../components/GQLArticleList'
 async function getData() {
   const res = await fetch('http://localhost:4200/api/todos')
   // The return value is *not* serialized
@@ -18,6 +18,8 @@ export default function Page() {
 
   return (
     <>
+      <h1>GQLArticleList</h1>
+      <GQLArticleList />
       <h1>Todos</h1>
       {todos.map((todo) => {
         return (
