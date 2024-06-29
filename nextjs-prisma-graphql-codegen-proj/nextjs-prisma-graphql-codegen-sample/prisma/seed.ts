@@ -3,14 +3,14 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 async function main() {
-  const alice = await prisma.users.upsert({
+  const alice = await prisma.user.upsert({
     where: { email: 'alice@prisma.io' },
     update: {},
     create: {
       email: 'alice@prisma.io',
       name: 'Alice',
       password: 'alice',
-      articles: {
+      Article: {
         create: {
           title: 'Check out Prisma with Next.js',
           content: 'https://www.prisma.io/nextjs',
@@ -18,14 +18,14 @@ async function main() {
       },
     },
   })
-  const bob = await prisma.users.upsert({
+  const bob = await prisma.user.upsert({
     where: { email: 'bob@prisma.io' },
     update: {},
     create: {
       email: 'bob@prisma.io',
       name: 'Bob',
       password: 'bob',
-      articles: {
+      Article: {
         create: [
           {
             title: 'Follow Prisma on Twitter',

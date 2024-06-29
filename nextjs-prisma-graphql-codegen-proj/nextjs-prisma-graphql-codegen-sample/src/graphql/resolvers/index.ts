@@ -9,7 +9,6 @@
 import { PrismaClient } from '@prisma/client'
 
 import type { Resolvers } from '@/generated/resolvers-types'
-
 import prisma from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
@@ -30,8 +29,7 @@ export const resolvers: Resolvers = {
       // }
       const articles = await prisma.article.findMany({
         orderBy: { createdAt: 'desc' },
-        include: { users: true },
-        where: { userId: 'test1' },
+        include: { user: true },
       })
       console.log('----------------------articles')
       console.log(articles[0])
