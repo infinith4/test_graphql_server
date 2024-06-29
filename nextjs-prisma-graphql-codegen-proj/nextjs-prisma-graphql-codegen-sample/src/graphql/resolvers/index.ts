@@ -1,7 +1,15 @@
+// import type { Resolvers } from '@/generated/resolvers-types'
+//import type { Resolvers } from '@/graphql/dist/graphql_codegen'
+//import type { Resolvers } from '@/graphql/dist/resolvers-types'
 // import { prisma } from '@/libs/prisma'
+// import { PrismaClient } from '@prisma/client'
+// import { Context } from '@apollo/client'
+// import { prisma } from '@/libs/prisma'
+
 import { PrismaClient } from '@prisma/client'
 
 import type { Resolvers } from '@/generated/resolvers-types'
+
 import prisma from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
@@ -14,6 +22,7 @@ export const resolvers: Resolvers = {
       console.log(args)
       console.log('----------------------contextValue')
       console.log(contextValue)
+
       console.log('----------------------info')
       console.log(info)
       // if (!currentUser) {
@@ -21,7 +30,7 @@ export const resolvers: Resolvers = {
       // }
       const articles = await prisma.article.findMany({
         orderBy: { createdAt: 'desc' },
-        include: { user: true },
+        include: { users: true },
         where: { userId: 'test1' },
       })
       console.log('----------------------articles')

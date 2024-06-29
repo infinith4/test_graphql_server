@@ -89,10 +89,12 @@ const typeDefs = readFileSync(schemaPath, { encoding: 'utf-8' })
 // })
 
 // const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
-
+console.log("create ApolloServer ----------------------")
+console.log(createContext)
 const server = new ApolloServer({
   resolvers,
   typeDefs,
+  context: createContext
 })
 
 const handler = startServerAndCreateNextHandler(server)

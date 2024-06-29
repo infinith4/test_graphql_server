@@ -1,26 +1,32 @@
-import { useQuery } from "@apollo/client";
-import { ArticleFragmentFragmentDoc, ArticlesDocument, ArticlesQueryVariables } from "@/gql/graphql";
-import { FragmentType, useFragment } from "@/gql/fragment-masking";
+import { useQuery } from '@apollo/client'
+
+import type { FragmentType } from '@/gql/fragment-masking'
+import { useFragment } from '@/gql/fragment-masking'
+import {
+  ArticleFragmentFragmentDoc,
+  ArticlesDocument,
+  ArticlesQueryVariables,
+} from '@/gql/graphql'
 
 const Article = (props: {
   /* `film` property has the correct type 🎉 */
-  article: FragmentType<typeof ArticleFragmentFragmentDoc>;
+  article: FragmentType<typeof ArticleFragmentFragmentDoc>
 }) => {
-  const data = useFragment(ArticleFragmentFragmentDoc, props.article);
+  const data = useFragment(ArticleFragmentFragmentDoc, props.article)
 
-    return (
-      <div>
-        <p>-----------gqllist--</p>
-        {data && (
+  return (
+    <div>
+      <p>-----------gqllist--</p>
+      {data && (
         <ul>
-        {data.id}
+          {data.id}
           {data.createdAt}
           {data.updatedAt}
           {data.content}
         </ul>
       )}
-      </div>
-    );
-  };
+    </div>
+  )
+}
 
-  export default Article;
+export default Article

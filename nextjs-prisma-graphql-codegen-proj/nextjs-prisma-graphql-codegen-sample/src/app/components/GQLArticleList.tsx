@@ -1,18 +1,21 @@
-import {  gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client'
 
-import Article from "./Article";
+import type { ArticlesQuery } from '@/graphql/dist/graphql_codegen'
+import { ArticlesDocument } from '@/graphql/dist/graphql_codegen'
+import { getClient } from '@/libs/client'
 
-import { ArticlesQuery, ArticlesDocument } from "@/graphql/dist/client";
-import { getClient } from "@/libs/client";
+import Article from './Article'
 
 export default async function GQLArticleList() {
+  console.log('GQLArticleList----------------------------------------')
   // クエリ
-  const {data: queryData, loading} = await getClient().query<ArticlesQuery>({
+  const { data: queryData, loading } = await getClient().query<ArticlesQuery>({
     query: ArticlesDocument,
-  });
-  console.log("queryData----------------------------------------")
+  })
+  console.log('queryData----------------------------------------')
   console.log(queryData)
-  const articles = [...queryData.articles];
+  const articles = [...queryData.articles]
+
   return (
     <main>
       <div>list of articles</div>
@@ -24,5 +27,5 @@ export default async function GQLArticleList() {
           </div>
         ))}
     </main>
-  );
+  )
 }
