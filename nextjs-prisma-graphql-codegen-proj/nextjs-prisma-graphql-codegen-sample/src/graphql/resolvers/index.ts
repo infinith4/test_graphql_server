@@ -1,30 +1,30 @@
-import type { Resolvers } from '@/generated/resolvers-types'
 // import { prisma } from '@/libs/prisma'
 import { PrismaClient } from '@prisma/client'
 
+import type { Resolvers } from '@/generated/resolvers-types'
 import prisma from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
   Query: {
     articles: async (parent, args, contextValue, info) => {
       //console.log(prisma)
-      console.log("----------------------parent")
+      console.log('----------------------parent')
       console.log(parent)
-      console.log("----------------------args")
+      console.log('----------------------args')
       console.log(args)
-      console.log("----------------------contextValue")
+      console.log('----------------------contextValue')
       console.log(contextValue)
-      console.log("----------------------info")
+      console.log('----------------------info')
       console.log(info)
       // if (!currentUser) {
       //   throw new Error('User not logged in.')
       // }
       const articles = await prisma.article.findMany({
         orderBy: { createdAt: 'desc' },
-        include: { users: true },
-        where: { userId: "test1" },
+        include: { user: true },
+        where: { userId: 'test1' },
       })
-      console.log("----------------------articles")
+      console.log('----------------------articles')
       console.log(articles[0])
 
       return articles
