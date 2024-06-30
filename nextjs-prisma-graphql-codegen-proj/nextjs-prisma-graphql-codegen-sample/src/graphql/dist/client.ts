@@ -38,6 +38,7 @@ export type Mutation = {
 
 
 export type MutationAddArticleArgs = {
+  content: Scalars['String']['input'];
   title: Scalars['String']['input'];
 };
 

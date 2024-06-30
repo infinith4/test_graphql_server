@@ -102,8 +102,7 @@ https://zenn.dev/takubii/articles/ad93ca8966a213
 
 yarn add @types/bcrypt --save-dev
 
-curl -v http://localhost:4200/my-api-auth
-
+curl -v http://localhost:4210/my-api-auth
 
 yarn add -D @graphql-codegen/client-preset
 
@@ -115,3 +114,7 @@ base file: codegen.ts
 
 generate file: src/graphql/dist/graphql_codegen.ts
 
+src/generated/schema.graphql
+to
+src/graphql/dist/client
+src/graphql/dist/resolvers-types.ts

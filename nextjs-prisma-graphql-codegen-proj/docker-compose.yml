@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     # ports:
-    #   - 3200:4200
+    #   - 3200:4210
     tty: true
     volumes:
       - type: bind
