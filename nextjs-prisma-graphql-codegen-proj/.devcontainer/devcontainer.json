@@ -16,7 +16,7 @@
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
   "forwardPorts": [
-    "3200:4200"
+    "3200:4210"
   ],
   // "portsAttributes": {
   //   "3200": {
@@ -25,7 +25,7 @@
   // },
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "yarn install",
-  "postCreateCommand": "yarn install",
+  "postCreateCommand": "/bin/sh .devcontainer/postCreateCommand.sh",
   "workspaceFolder": "/nextjs-prisma-graphql-codegen-sample",
   "customizations": {
     "vscode": {
