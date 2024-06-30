@@ -5,7 +5,7 @@
 // import Cors from 'micro-cors'
 // import { start } from 'repl'
 
-// import { createContext } from '@/graphql/context'
+//import { createContext } from '@/graphql/context'
 // import { resolvers } from '@/graphql/resolvers'
 
 // const cors = Cors()
@@ -89,14 +89,47 @@ const typeDefs = readFileSync(schemaPath, { encoding: 'utf-8' })
 // })
 
 // const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
-console.log("create ApolloServer ----------------------")
-console.log(createContext)
 const server = new ApolloServer({
   resolvers,
-  typeDefs,
-  context: createContext
+  typeDefs
 })
+// import { getSession } from 'next-auth/react'
+import NextAuth from "next-auth"
+import { authConfig } from '@/auth.config'
 
-const handler = startServerAndCreateNextHandler(server)
+const {auth} = NextAuth(authConfig)
+import prisma from '@/libs/prisma'
+const handler = startServerAndCreateNextHandler(server
+  , {
+  // context: async (req, res) => (await createContext({req})),
+  context: async (req) => {
+    try{
+
+      console.log("req---------------")
+      console.log(req)
+      const session = await auth()
+      const email = session?.user?.email// ?? "alice@prisma.io"  //TODO: session?.user?.email is undefined
+      console.log("email---------------")
+      console.log(email)
+      const currentUser = email
+        ? await prisma.user.findUnique({ where: { email } })
+        : null
+      console.log("currentUser---------------")
+      console.log(currentUser)
+      return { prisma, currentUser }
+    }catch(ex){
+      console.log("ex---------------")
+      console.log(ex)
+    }
+    // let user: User | null = null
+    // const token = ctx.headers.authorization ?? ''
+    // if (token) {
+    //   // FirebaseやDBからUser情報を取得する(以下はDBから取得するイメージ)
+    //   user = await getUser()
+    // }
+    // return { user }
+  },
+}
+)
 
 export { handler as GET, handler as POST }

@@ -39,12 +39,13 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     addArticle: async (_, { title }, { prisma, currentUser }) => {
+      console.log("-------------currentUser")
       console.log(currentUser)
       if (!currentUser) {
         throw new Error('User not Logged in.')
       }
       const article = await prisma.article.create({
-        data: { userId: currentUser.id, title },
+        data: { userId: currentUser.id, title, content: "test1" },
         include: { user: true },
       })
 

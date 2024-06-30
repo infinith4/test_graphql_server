@@ -1,4 +1,3 @@
-import type { users } from '@prisma/client'
 import type { IncomingMessage } from 'http'
 import { getSession } from 'next-auth/react'
 
@@ -14,10 +13,15 @@ export const createContext = async ({
 }: {
   req: IncomingMessage
 }): Promise<Context> => {
+  console.log("createContext---------------")
   const session = await getSession({ req })
+  console.log("session---------------")
+  console.log(session)
+  console.log("req---------------")
+  console.log(req)
   const email = session?.user?.email
   const currentUser = email
-    ? await prisma.users.findUnique({ where: { email } })
+    ? await prisma.user.findUnique({ where: { email } })
     : null
   return { prisma, currentUser }
 }
