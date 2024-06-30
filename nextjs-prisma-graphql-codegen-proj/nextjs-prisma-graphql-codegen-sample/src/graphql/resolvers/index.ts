@@ -1,14 +1,13 @@
 // import type { Resolvers } from '@/generated/resolvers-types'
 //import type { Resolvers } from '@/graphql/dist/graphql_codegen'
-//import type { Resolvers } from '@/graphql/dist/resolvers-types'
 // import { prisma } from '@/libs/prisma'
 // import { PrismaClient } from '@prisma/client'
 // import { Context } from '@apollo/client'
 // import { prisma } from '@/libs/prisma'
-
 import { PrismaClient } from '@prisma/client'
 
-import type { Resolvers } from '@/generated/resolvers-types'
+import type { Resolvers } from '@/graphql/dist/resolvers-types'
+// import type { Resolvers } from '@/generated/resolvers-types'
 import prisma from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
