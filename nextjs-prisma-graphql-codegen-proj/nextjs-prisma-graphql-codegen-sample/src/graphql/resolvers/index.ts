@@ -6,7 +6,7 @@
 // import { prisma } from '@/libs/prisma'
 import { PrismaClient } from '@prisma/client'
 
-import type { Resolvers } from '@/generated/dist/graphql_codegen'
+import type { Resolvers } from '@/graphql/dist/graphql_codegen'
 import prisma from '@/libs/prisma'
 
 export const resolvers: Resolvers = {
