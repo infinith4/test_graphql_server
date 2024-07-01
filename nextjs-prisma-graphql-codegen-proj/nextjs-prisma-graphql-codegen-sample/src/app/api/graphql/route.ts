@@ -90,20 +90,20 @@ const { auth } = NextAuth(authConfig)
 const handler = startServerAndCreateNextHandler(server, {
   context: async (req) => {
     try {
-      console.log('req---------------')
-      console.log(req)
+      // console.log('req---------------')
+      // console.log(req)
       const session = await auth()
       if (!session) {
         throw new Error('Session not found')
       }
       const email = session?.user?.email // ?? "alice@prisma.io"  //TODO: session?.user?.email is undefined
-      console.log('email---------------')
-      console.log(email)
+      // console.log('email---------------')
+      // console.log(email)
       const currentUser = email
         ? await prisma.user.findUnique({ where: { email } })
         : null
-      console.log('currentUser---------------')
-      console.log(currentUser)
+      // console.log('currentUser---------------')
+      // console.log(currentUser)
       return { prisma, currentUser }
     } catch (ex) {
       console.log('ex---------------')
