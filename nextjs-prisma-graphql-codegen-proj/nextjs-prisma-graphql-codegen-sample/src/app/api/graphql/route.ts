@@ -30,6 +30,7 @@
 // }
 // export default startServerAndCreateNextHandler(apolloServer)
 // //https://zenn.dev/metallic_kfc/articles/59f3875c950056
+import type { BaseContext } from '@apollo/server'
 import { ApolloServer } from '@apollo/server'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
 // const resolvers = {
@@ -81,7 +82,7 @@ const typeDefs = readFileSync(schemaPath, { encoding: 'utf-8' })
 // })
 
 // const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
-const server = new ApolloServer({
+const server = new ApolloServer<BaseContext>({
   resolvers,
   typeDefs,
 })
@@ -108,6 +109,7 @@ const handler = startServerAndCreateNextHandler(server, {
     } catch (ex) {
       console.log('ex---------------')
       console.log(ex)
+      return { prisma, currentUser: null } // Ensure a valid context is always returned
     }
     // let user: User | null = null
     // const token = ctx.headers.authorization ?? ''
