@@ -108,13 +108,9 @@ yarn add -D @graphql-codegen/client-preset
 
 yarn add -D @graphql-codegen/typescript-graphql-request
 
+## codegen
+
 yarn codegen
 
 base file: codegen.ts
-
 generate file: src/graphql/dist/graphql_codegen.ts
-
-src/generated/schema.graphql
-to
-src/graphql/dist/client
-src/graphql/dist/resolvers-types.ts
