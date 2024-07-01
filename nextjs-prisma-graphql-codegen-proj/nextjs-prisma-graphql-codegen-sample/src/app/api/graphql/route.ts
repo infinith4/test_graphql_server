@@ -6,41 +6,30 @@
 // import { start } from 'repl'
 
 //import { createContext } from '@/graphql/context'
-// import { resolvers } from '@/graphql/resolvers'
-
 // const cors = Cors()
-
 // const schema = loadSchemaSync('src/generated/schema.graphql', {
 //   loaders: [new GraphQLFileLoader()],
 // })
-
 // const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
-
 // const apolloServer = new ApolloServer({
 //   schema: schemaWithResolvers,
 // })
-
 // const startServer = apolloServer.start()
-
 // export default cors(async function handlers(req, res) {
 //   if (req.method == 'OPTIONS') {
 //     res.end()
 //     return false
 //   }
-
 //   await startServer
 //   // await apolloServer.({ path: '/api/graphql' })(req, res)
 // })
-
 // export const config = {
 //   api: {
 //     bodyParser: false,
 //   },
 // }
-
 // export default startServerAndCreateNextHandler(apolloServer)
 // //https://zenn.dev/metallic_kfc/articles/59f3875c950056
-
 import { ApolloServer } from '@apollo/server'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
 // const resolvers = {
@@ -59,10 +48,13 @@ import { addResolversToSchema } from '@graphql-tools/schema'
 import { PrismaClient } from '@prisma/client'
 import { readFileSync } from 'fs'
 import { gql } from 'graphql-tag'
+// import { getSession } from 'next-auth/react'
+import NextAuth from 'next-auth'
 import path from 'path'
 
-import { createContext } from '@/graphql/context'
+import { authConfig } from '@/auth.config'
 import { resolvers } from '@/graphql/resolvers'
+import prisma from '@/libs/prisma'
 
 // const prisma = new PrismaClient()
 // const resolvers = {
@@ -91,34 +83,30 @@ const typeDefs = readFileSync(schemaPath, { encoding: 'utf-8' })
 // const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
 const server = new ApolloServer({
   resolvers,
-  typeDefs
+  typeDefs,
 })
-// import { getSession } from 'next-auth/react'
-import NextAuth from "next-auth"
-import { authConfig } from '@/auth.config'
 
-const {auth} = NextAuth(authConfig)
-import prisma from '@/libs/prisma'
-const handler = startServerAndCreateNextHandler(server
-  , {
-  // context: async (req, res) => (await createContext({req})),
+const { auth } = NextAuth(authConfig)
+const handler = startServerAndCreateNextHandler(server, {
   context: async (req) => {
-    try{
-
-      console.log("req---------------")
+    try {
+      console.log('req---------------')
       console.log(req)
       const session = await auth()
-      const email = session?.user?.email// ?? "alice@prisma.io"  //TODO: session?.user?.email is undefined
-      console.log("email---------------")
+      if (!session) {
+        throw new Error('Session not found')
+      }
+      const email = session?.user?.email // ?? "alice@prisma.io"  //TODO: session?.user?.email is undefined
+      console.log('email---------------')
       console.log(email)
       const currentUser = email
         ? await prisma.user.findUnique({ where: { email } })
         : null
-      console.log("currentUser---------------")
+      console.log('currentUser---------------')
       console.log(currentUser)
       return { prisma, currentUser }
-    }catch(ex){
-      console.log("ex---------------")
+    } catch (ex) {
+      console.log('ex---------------')
       console.log(ex)
     }
     // let user: User | null = null
@@ -129,7 +117,6 @@ const handler = startServerAndCreateNextHandler(server
     // }
     // return { user }
   },
-}
-)
+})
 
 export { handler as GET, handler as POST }
