@@ -114,3 +114,7 @@ yarn codegen
 
 base file: codegen.ts
 generate file: src/graphql/dist/graphql_codegen.ts
+
+GQLArticleList
+-> api/graphql src/libs/client.ts
+-> src/graphql/resolvers/index.ts context is null

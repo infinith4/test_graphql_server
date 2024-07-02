@@ -4,11 +4,11 @@ import type { ArticlesQuery } from '@/graphql/dist/graphql_codegen'
 import { ArticlesDocument } from '@/graphql/dist/graphql_codegen'
 import { getClient } from '@/libs/client'
 
-import Article from './Article'
-
 export default async function GQLArticleList() {
   console.log('GQLArticleList----------------------------------------')
   // クエリ
+
+  console.log('TODO: context is null----------------------------------------')
   const { data: queryData, loading } = await getClient().query<ArticlesQuery>({
     query: ArticlesDocument,
   })
