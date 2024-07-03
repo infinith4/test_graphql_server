@@ -148,6 +148,13 @@ import type { NextAuthConfig } from 'next-auth'
 
 import { authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from '@/routes'
 
+import Credentials from 'next-auth/providers/credentials'
+
+import { getUserByEmail } from '@/app/db/user'
+import { signInSchema } from '@/app/lib/schemas'
+
+import { genSaltSync, hashSync, compareSync } from "bcrypt-ts";
+
 export const authConfig = {
   pages: {
     signIn: '/login',
@@ -173,5 +180,26 @@ export const authConfig = {
       return true
     },
   },
-  providers: [],
+   providers: [
+    Credentials({
+      async authorize(credentials) {
+        const parsedCredentials = signInSchema.safeParse(credentials)
+
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data
+          const user = await getUserByEmail(email)
+
+          if (!user) return null
+
+          // const salt = genSaltSync(10);
+          // const hash = hashSync("B4c0//", salt);
+          const passwordMatch = compareSync(password, user.password);// await bcrypt.compare(password, user.password)
+
+          if (passwordMatch) return user
+        }
+
+        return null
+      },
+    }),
+  ],
 } satisfies NextAuthConfig

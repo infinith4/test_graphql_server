@@ -26,34 +26,47 @@
 
 // export const { signIn, signOut } = NextAuth(authConfig)
 
-import bcrypt from 'bcrypt'
 import NextAuth from 'next-auth'
-import Credentials from 'next-auth/providers/credentials'
-
-import { getUserByEmail } from '@/app/db/user'
-import { signInSchema } from '@/app/lib/schemas'
 import { authConfig } from '@/auth.config'
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { db } from '@/libs/db';
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(db),
+  session: { strategy: 'jwt' },
   ...authConfig,
-  providers: [
-    Credentials({
-      async authorize(credentials) {
-        const parsedCredentials = signInSchema.safeParse(credentials)
+  // providers: [
+  //   Credentials({
+  //     async authorize(credentials) {
+  //       const parsedCredentials = signInSchema.safeParse(credentials)
 
-        if (parsedCredentials.success) {
-          const { email, password } = parsedCredentials.data
-          const user = await getUserByEmail(email)
+  //       if (parsedCredentials.success) {
+  //         const { email, password } = parsedCredentials.data
+  //         const user = await getUserByEmail(email)
 
-          if (!user) return null
+  //         if (!user) return null
 
-          const passwordMatch = await bcrypt.compare(password, user.password)
+  //         const passwordMatch = await bcrypt.compare(password, user.password)
 
-          if (passwordMatch) return user
-        }
+  //         if (passwordMatch) return user
+  //       }
 
-        return null
-      },
-    }),
-  ],
+  //       return null
+  //     },
+  //   }),
+  // ],
+  // callbacks: {
+  //   async jwt({ token, user }) {
+  //     if (user) {
+  //       token.id = user.id;
+  //     }
+  //     return token;
+  //   },
+  //   async session({ session, token }) {
+  //     if (token) {
+  //       session.user.id = token.id;
+  //     }
+  //     return session;
+  //   }
+  // }
 })
