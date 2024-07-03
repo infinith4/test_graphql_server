@@ -4,7 +4,7 @@ import { signUpSchema } from '@/schemas';
 import { ActionsResult } from '@/types/ActionsResult';
 import { z } from 'zod';
 import { getUserByEmail } from '@/db/user';
-import { db } from '@/lib/db';
+
 import { handleError } from '@/lib/utils';
 import { genSaltSync, hashSync } from "bcrypt-ts";
 
