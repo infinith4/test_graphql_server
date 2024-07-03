@@ -3,10 +3,10 @@
 import { signUpSchema } from '@/schemas';
 import { ActionsResult } from '@/types/ActionsResult';
 import { z } from 'zod';
-import bcrypt from 'bcryptjs';
 import { getUserByEmail } from '@/db/user';
 import { db } from '@/lib/db';
 import { handleError } from '@/lib/utils';
+import { genSaltSync, hashSync } from "bcrypt-ts";
 
 export const signUp = async (
   values: z.infer<typeof signUpSchema>
@@ -25,7 +25,8 @@ export const signUp = async (
   const { email, password, nickname } = validatedFields.data;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = genSaltSync(10);
+    const hashedPassword = hashSync(password, salt);
 
     const existingUser = await getUserByEmail(email);
 
