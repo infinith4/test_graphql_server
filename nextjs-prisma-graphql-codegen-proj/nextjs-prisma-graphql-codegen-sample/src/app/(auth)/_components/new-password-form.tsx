@@ -1,12 +1,12 @@
-'use client';
+'use client'
 
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
-import { useState, useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { useState, useTransition } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Input } from '@/components/ui/input';
+import { Input } from '@/app/components/ui/input'
 import {
   Form,
   FormControl,
@@ -14,52 +14,52 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { FormError } from '@/components/form-error';
-import { FormSuccess } from '@/components/form-success';
-import { newPasswordSchema } from '@/schemas/index';
-import { newPassword } from '@/actions/email/new-password';
-import { toast } from 'sonner';
+} from '@/app/components/ui/form'
+import { Button } from '@/app/components/ui/button'
+import { FormError } from '@/app/components/form-error'
+import { FormSuccess } from '@/app/components/form-success'
+import { newPasswordSchema } from '@/schemas/index'
+import { newPassword } from '@/actions/email/new-password'
+import { toast } from 'sonner'
 
 export const NewPasswordForm = () => {
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const searchParams = useSearchParams()
+  const token = searchParams.get('token')
 
-  const [error, setError] = useState<string | undefined>('');
-  const [success, setSuccess] = useState<string | undefined>('');
-  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>('')
+  const [success, setSuccess] = useState<string | undefined>('')
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof newPasswordSchema>>({
     resolver: zodResolver(newPasswordSchema),
     defaultValues: {
       password: '',
     },
-  });
+  })
 
   const onSubmit = (values: z.infer<typeof newPasswordSchema>) => {
-    setError('');
-    setSuccess('');
+    setError('')
+    setSuccess('')
 
     startTransition(async () => {
-      const result = await newPassword(values, token);
+      const result = await newPassword(values, token)
 
       if (!result.isSuccess) {
-        setError(result.error.message);
-        return;
+        setError(result.error.message)
+        return
       }
 
-      toast.success(result.message);
-    });
-  };
+      toast.success(result.message)
+    })
+  }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-        <div className='space-y-4'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="space-y-4">
           <FormField
             control={form.control}
-            name='password'
+            name="password"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
@@ -67,8 +67,8 @@ export const NewPasswordForm = () => {
                   <Input
                     {...field}
                     disabled={isPending}
-                    placeholder='******'
-                    type='password'
+                    placeholder="******"
+                    type="password"
                   />
                 </FormControl>
                 <FormMessage />
@@ -78,10 +78,10 @@ export const NewPasswordForm = () => {
         </div>
         <FormError message={error} />
         <FormSuccess message={success} />
-        <Button disabled={isPending} type='submit'>
+        <Button disabled={isPending} type="submit">
           パスワードをリセット
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}

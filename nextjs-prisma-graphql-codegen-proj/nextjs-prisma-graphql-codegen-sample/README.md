@@ -118,3 +118,5 @@ generate file: src/graphql/dist/graphql_codegen.ts
 GQLArticleList
 -> api/graphql src/libs/client.ts
 -> src/graphql/resolvers/index.ts context is null
+
+yarn add @radix-ui/react-separator lucide-react react-icons resend
