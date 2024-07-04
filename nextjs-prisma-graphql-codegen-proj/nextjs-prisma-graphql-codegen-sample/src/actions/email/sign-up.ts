@@ -3,11 +3,11 @@
 import { signUpSchema } from '@/schemas';
 import { ActionsResult } from '@/types/ActionsResult';
 import { z } from 'zod';
-import { getUserByEmail } from '@/db/user';
+import { getUserByEmail } from '@/app/db/user';
 
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/libs/utils';
 import { genSaltSync, hashSync } from "bcrypt-ts";
-
+import { db } from '@/libs/db'
 export const signUp = async (
   values: z.infer<typeof signUpSchema>
 ): Promise<ActionsResult> => {

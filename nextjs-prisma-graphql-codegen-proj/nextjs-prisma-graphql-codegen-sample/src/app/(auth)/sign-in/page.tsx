@@ -1,5 +1,5 @@
 import React from 'react';
-import { buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/app/components/ui/button';
 import Link from 'next/link';
 import { SignInForm } from '../_components/sign-in-form';
 

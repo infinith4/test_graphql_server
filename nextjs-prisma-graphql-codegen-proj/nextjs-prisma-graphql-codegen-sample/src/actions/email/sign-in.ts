@@ -6,7 +6,7 @@ import { AuthError } from 'next-auth';
 import { signIn as signInByAuthJS } from '@/auth';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { signInSchema } from '@/schemas';
-import { getUserByEmail } from '@/db/user';
+import { getUserByEmail } from '@/app/db/user';
 import { ActionsResult } from '@/types/ActionsResult';
 
 export const signIn = async (

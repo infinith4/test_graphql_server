@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/libs/utils';
 import { Noto_Sans_JP } from 'next/font/google';
 
 const font = Noto_Sans_JP({ subsets: ['latin'], weight: ['600'] });

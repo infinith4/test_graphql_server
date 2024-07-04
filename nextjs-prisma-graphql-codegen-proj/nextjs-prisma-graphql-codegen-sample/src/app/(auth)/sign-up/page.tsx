@@ -1,6 +1,6 @@
 import React from 'react';
 import { SignUpForm } from '../_components/sign-up-form';
-import { buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/app/components/ui/button';
 import Link from 'next/link';
 
 function SignUpPage() {
