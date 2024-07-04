@@ -8,7 +8,7 @@ import {
   Tailwind,
   Preview,
 } from '@react-email/components';
-import Footer from '@/components/emails/footer';
+import Footer from '@/app/components/emails/footer';
 
 export default function OTPNotificationEmail({
   email,

@@ -9,7 +9,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
-import Footer from '@/components/emails/footer';
+import Footer from '@/app/components/emails/footer';
 
 export default function VerificationEmail({
   email,
