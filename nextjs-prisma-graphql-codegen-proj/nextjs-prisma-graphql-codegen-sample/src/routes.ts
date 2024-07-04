@@ -4,15 +4,17 @@
 /**
  * 認証が必要ないルートの配列(これらのルートは認証を必要としません)
  */
-export const publicRoutes: string[] = [];
+export const publicRoutes: string[] = ['/new-verification'];
 
 /**
  * 認証に使用されるルートの配列
  */
 export const authRoutes: string[] = [
-  '/sign-in',
   '/sign-up',
+  '/sign-in',
   '/auth/new-password',
+  '/reset-password',
+  '/new-password',
 ];
 
 /**

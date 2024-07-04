@@ -8,6 +8,9 @@ import { getUserByEmail } from '@/app/db/user';
 import { handleError } from '@/libs/utils';
 import { genSaltSync, hashSync } from "bcrypt-ts";
 import { db } from '@/libs/db'
+import { generateVerificationToken } from '@/libs/tokens';
+import { sendVerificationEmail } from '@/libs/mail';
+
 export const signUp = async (
   values: z.infer<typeof signUpSchema>
 ): Promise<ActionsResult> => {
@@ -47,9 +50,15 @@ export const signUp = async (
       },
     });
 
+    const verificationToken = await generateVerificationToken(email);
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token
+    );
+
     return {
       isSuccess: true,
-      message: 'サインアップに成功しました。',
+      message: '確認メールを送信しました。',
     };
   } catch (error) {
     handleError(error);
