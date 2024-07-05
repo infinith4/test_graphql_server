@@ -9,18 +9,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum UserRole {
+  ADMIN
+  USER
+}
+
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  username      String?         @unique
-  email         String?         @unique
-  password      String?
-  emailVerified DateTime?
-  image         String?
-  Session       Session[]
-  Account       Account?
+  id                    String                 @id @default(cuid())
+  name                  String?
+  username              String?                @unique
+  email                 String?                @unique
+  password              String?
+  emailVerified         DateTime?
+  image                 String?
+  Session               Session[]
+  Account               Account?
+  role                  UserRole               @default(USER)
+  isTwoFactorEnabled    Boolean                @default(true)
+  twoFactorConfirmation TwoFactorConfirmation?
   // Optional for WebAuthn support
-  Authenticator Authenticator[]
+  Authenticator         Authenticator[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -50,6 +58,41 @@ model Account {
   @@index([userId])
 }
 
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -61,14 +104,6 @@ model Session {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
-}
-
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
 
 // Optional for WebAuthn support
