@@ -1,10 +1,9 @@
 'use server';
 
 import * as z from 'zod';
-import bcrypt from 'bcryptjs';
 
 import { update as updateByAuthJs, auth } from '@/auth';
-import { db } from '@/lib/db';
+import { db } from '@/libs/db';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
 import { editProfileSchema } from '@/schemas';

@@ -34,6 +34,8 @@ import { UserRole } from '@prisma/client';
 import { getUserById } from '@/app/db/user';
 import { getTwoFactorConfirmationByUserId } from '@/app/db/tow-factor-confirmation';
 import { getAccountByUserId } from '@/app/db/account';
+import { genSaltSync, hashSync, compareSync } from "bcrypt-ts";
+
 export const { handlers: { GET, POST }, auth, signIn, signOut,update } = NextAuth({
   pages: {
     signIn: '/sign-in',
