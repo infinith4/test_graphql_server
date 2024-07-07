@@ -109,11 +109,11 @@ const handler = startServerAndCreateNextHandler(server, {
   // For `startStandaloneServer`, the `req` and `res` objects are
   // `http.IncomingMessage` and `http.ServerResponse` types.
   context: async (req, res) => {
-    try{
+    try {
       // Get the user token from the headers.
-      console.log("req.headers")
+      console.log('req.headers')
       console.log(req.headers)
-      const token = req.headers.authorization || '';
+      const token = req.headers.authorization || ''
       console.log('token---------------')
       console.log(token)
 
@@ -126,11 +126,11 @@ const handler = startServerAndCreateNextHandler(server, {
       // Try to retrieve a user with the token
       // const user = await getUser(token);
       const currentUser = email
-              ? await prisma.user.findUnique({ where: { email } })
-              : null
+        ? await prisma.user.findUnique({ where: { email } })
+        : null
       // Add the user to the context
-      return { email };
-    }catch (ex) {
+      return { email }
+    } catch (ex) {
       console.log('ex---------------')
       console.log(ex)
       return null // Ensure a valid context is always returned
@@ -171,6 +171,5 @@ const handler = startServerAndCreateNextHandler(server, {
 //     // return { user }
 //   },
 // })
-
 
 export { handler as GET, handler as POST }

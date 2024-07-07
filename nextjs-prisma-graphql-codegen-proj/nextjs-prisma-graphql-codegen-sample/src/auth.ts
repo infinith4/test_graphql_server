@@ -34,7 +34,7 @@ import NextAuth from 'next-auth'
 import { getAccountByUserId } from '@/app/db/account'
 import { getTwoFactorConfirmationByUserId } from '@/app/db/tow-factor-confirmation'
 import { getUserById } from '@/app/db/user'
-import { authConfig } from '@/auth.config'
+import authConfig from '@/auth.config'
 import { db } from '@/libs/db'
 
 export const {
@@ -48,7 +48,7 @@ export const {
     signIn: '/sign-in',
   },
   events: {
-    async linkAccount({ user }) {
+    async linkAccount({ user }: any) {
       await db.user.update({
         where: { id: user.id },
         data: { emailVerified: new Date() },
@@ -56,7 +56,7 @@ export const {
     },
   },
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user, account }: any) {
       if (account?.provider !== 'credentials') return true
 
       const existingUser = await getUserById(user.id)
@@ -79,7 +79,7 @@ export const {
 
       return true
     },
-    async session({ token, session }) {
+    async session({ token, session }: any) {
       console.log('---------session')
       if (token.sub && session.user) {
         session.user.id = token.sub
@@ -97,7 +97,7 @@ export const {
       }
       return session
     },
-    async jwt({ token }) {
+    async jwt({ token }: any) {
       console.log('---------jwt')
       if (!token.sub) return token
       const existingUser = await getUserById(token.sub)

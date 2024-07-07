@@ -1,6 +1,6 @@
 // import { PrismaClient } from '@/generated/prisma_client'
 import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcrypt'
+import { compareSync, genSaltSync, hashSync } from 'bcrypt-ts'
 
 const prisma = new PrismaClient()
 async function main() {
@@ -10,8 +10,8 @@ async function main() {
     create: {
       email: 'alice@prisma.io',
       name: 'Alice',
-      password: await bcrypt.hash('alice', 10),
-      Article: {
+      password: hashSync('alice', genSaltSync(10)),
+      articles: {
         create: {
           title: 'Check out Prisma with Next.js',
           content: 'https://www.prisma.io/nextjs',
@@ -25,8 +25,8 @@ async function main() {
     create: {
       email: 'bob@prisma.io',
       name: 'Bob',
-      password: await bcrypt.hash('bob', 10),
-      Article: {
+      password: hashSync('bob', genSaltSync(10)),
+      articles: {
         create: [
           {
             title: 'Follow Prisma on Twitter',
