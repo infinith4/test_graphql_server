@@ -63,6 +63,8 @@ npx prisma generate
 
 npx prisma migrate dev --name init
 
+npx prisma migrate reset
+
 ## seed
 
 package.json
@@ -114,3 +116,13 @@ yarn codegen
 
 base file: codegen.ts
 generate file: src/graphql/dist/graphql_codegen.ts
+
+GQLArticleList
+-> api/graphql src/libs/client.ts
+-> src/graphql/resolvers/index.ts context is null
+
+yarn add @radix-ui/react-separator lucide-react react-icons resend
+
+
+
+rm -R yarn.lock node_modules

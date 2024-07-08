@@ -1,20 +1,20 @@
 // import { auth, signOut } from '@/auth'
 
-// import { ArticleList } from '../components/ArticleList'
+import { useSession } from 'next-auth/react'
 
-import { signOut } from '@/auth'
+import GQLArticleList from '@/app/components/GQLArticleList'
+import { auth, signOut } from '@/auth'
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session = await auth()
+  // import GQLArticleList from '../components/GQLArticleList'
+  // import Login from '../components/Login';
+  // import Logout from '../components/Logout';
 
-// 'use client';
-// import GQLArticleList from '../components/GQLArticleList'
-// import { useSession } from 'next-auth/react';
-// import Login from '../components/Login';
-// import Logout from '../components/Logout';
+  // export default function Home() {
+  //const { data: session, status } = useSession()
 
-// export default function Home() {
-//   const { data: session, status } = useSession();
-
+  console.table(session)
   return (
     <div>
       <form
@@ -25,7 +25,9 @@ export default function Dashboard() {
       >
         <button>ログアウト</button>
       </form>
-      dashboard
+      dashboard <br />
+      GQLArticleList
+      <GQLArticleList />
     </div>
   )
 }

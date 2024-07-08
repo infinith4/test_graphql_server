@@ -1,6 +1,7 @@
 'use server'
 
-import bcrypt from 'bcrypt'
+import { genSaltSync, hashSync } from "bcrypt-ts";
+
 import { redirect } from 'next/navigation'
 import { AuthError } from 'next-auth'
 
@@ -21,6 +22,7 @@ export async function signUp(
   prevState: SignUpState,
   formData: FormData,
 ): Promise<SignUpState> {
+  console.log("signUp")
   const validatedFields = signUpSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
@@ -36,7 +38,10 @@ export async function signUp(
   const { email, password } = validatedFields.data
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10)
+
+    const salt = genSaltSync(10);
+    const hashedPassword = hashSync(password, salt);
+    //const hashedPassword = await bcrypt.hash(password, 10)
     const existingUser = await getUserByEmail(email)
 
     if (existingUser) {

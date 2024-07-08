@@ -10,7 +10,7 @@ export const options: NextAuthOptions = {
   session: { strategy: 'jwt' },
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
+      clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
     GoogleProvider({
