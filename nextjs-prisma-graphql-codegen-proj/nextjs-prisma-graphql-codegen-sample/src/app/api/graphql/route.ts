@@ -58,8 +58,8 @@ const handler = startServerAndCreateNextHandler(server, {
   context: async (req, res) => {
     try {
       // Get the user token from the headers.
-      console.log('req.headers')
-      console.log(req.headers)
+      // console.log('req.headers')
+      // console.log(req.headers)
       const token = req.headers.authorization || ''
       console.log('token---------------')
       console.log(token)
@@ -76,7 +76,7 @@ const handler = startServerAndCreateNextHandler(server, {
         ? await prisma.user.findUnique({ where: { email } })
         : null
       // Add the user to the context
-      return { email }
+      return { prisma, currentUser }
     } catch (ex) {
       console.log('ex---------------')
       console.log(ex)
