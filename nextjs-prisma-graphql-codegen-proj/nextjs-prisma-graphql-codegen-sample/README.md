@@ -122,3 +122,7 @@ GQLArticleList
 -> src/graphql/resolvers/index.ts context is null
 
 yarn add @radix-ui/react-separator lucide-react react-icons resend
+
+
+
+rm -R yarn.lock node_modules
