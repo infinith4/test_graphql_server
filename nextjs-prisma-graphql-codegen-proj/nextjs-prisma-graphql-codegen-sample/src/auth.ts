@@ -81,6 +81,7 @@ export const {
     },
     async session({ token, session }: any) {
       console.log('---------session')
+      console.log('---------session')
       if (token.sub && session.user) {
         session.user.id = token.sub
       }
@@ -88,6 +89,7 @@ export const {
         session.user.name = token.name
         session.user.email = token.email
         session.user.isOAuth = token.isOAuth as boolean
+        session.accessToken = token.accessToken
       }
       if (token.role && session.user) {
         session.user.role = token.role as UserRole
